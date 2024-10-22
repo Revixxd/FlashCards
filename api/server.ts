@@ -1,10 +1,10 @@
-const __dirname: string = import.meta.dirname;
+const __dirname = new URL('.', import.meta.url).pathname;
 
 import * as http from 'http';
 import * as fs from 'fs';
 import * as path from 'path';
 
-const server = http.createServer((req, res) => {
+const server = http.createServer((_, res) => {
     const filePath = path.join(__dirname, 'index.html');
 
     // Read the file and send it as the response
@@ -19,7 +19,7 @@ const server = http.createServer((req, res) => {
     });
 });
 
-const port :number = 3000;
+const port: number = 3000;
 server.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
