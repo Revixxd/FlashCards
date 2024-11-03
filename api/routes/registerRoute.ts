@@ -14,7 +14,6 @@ router.post('/', (req:any, res:any) => {
     const sanitizedUsername:string = sanitizeInput(req.body.username);
     const sanitizedPassword:string = sanitizeInput(req.body.password);
     const sanitizedEmail:string = sanitizeInput(req.body.email);
-    console.log(sanitizedUsername,sanitizedPassword,sanitizedEmail);
     if(!validator.isEmail(sanitizedEmail)){
         return res.status(400).json({
             message: 'Email is not valid'

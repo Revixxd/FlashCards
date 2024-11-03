@@ -14,7 +14,6 @@ router.post('/', async (req: any, res: any) => {
     const sanitizedPassword: string = sanitizeInput(req.body.password);
     await connectDb()
     const user = await User.findOne({ sanitizedUsernameOrEmail }).exec();
-    console.log(sanitizedUsernameOrEmail)
 
 
 
