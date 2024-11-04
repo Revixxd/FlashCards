@@ -5,7 +5,6 @@ const connectDb = async () => {
     const { DATABASE_USERNAME, DATABASE_PASSWORD  } = process.env;
     try {
         await mongoose.connect(`mongodb+srv://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@flashcardscluster.dbfi1.mongodb.net/flashcards?retryWrites=true&w=majority&appName=FlashcardsCluster`);
-        console.log('MongoDB connected successfully');
         
         return mongoose.connection;
     } catch (error) {

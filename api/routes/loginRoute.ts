@@ -11,6 +11,7 @@ router.post('/', async (req: any, res: any) => {
     const sanitizedUsernameOrEmail: string = sanitizeInput(req.body.usernameOrEmail);
     const sanitizedPassword: string = sanitizeInput(req.body.password);
     await connectDb()
+
     if (!sanitizedUsernameOrEmail || !sanitizedPassword) {
         return res.status(400).json({ message: 'Email and password is required' });
     }
