@@ -1,6 +1,7 @@
 import express from 'express';
 import connectDb from '../utils/connectDb.js';
 import sanitizeInput from '../utils/sanitizeInput.js';
+import { checkPassword } from '../utils/auth.js';
 import User from '../models/User.js'; 
 
 const router = express.Router();
@@ -19,14 +20,17 @@ router.post('/', async (req: any, res: any) => {
     if(user === null){
         user = await User.findOne({ email: sanitizedUsernameOrEmail }).exec();
     }
-    console.log(user)
-
     try {
         if (!user) {
             return res.status(404).json({ message: 'User not found' });
         }
-
-        return res.status(200).json({ message: 'You logged in' });
+        const isPasswordCorrect = await checkPassword(sanitizedPassword, user.password);
+        if(isPasswordCorrect){
+            return res.status(200).json({ message: 'You logged in' });
+        }
+        else{
+            return res.status(401).json({ message: 'Password is incorrect' });
+        }
     } catch (error) {
         return res.status(500).json({ message: 'Internal server error' });
     }
