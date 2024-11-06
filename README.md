@@ -9,7 +9,7 @@
 DATABASE_USERNAME = "yourUsername"
 DATABASE_PASSWORD = "yourPassword"
 DATABASE_NAME = "yourClusterName"
-   
+```
 ## Setting Up the Project and Configuration
 ### Installing Packages
 Run the following commands to install the required packages:
