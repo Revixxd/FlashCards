@@ -8,4 +8,9 @@ export default antfu({
       }],
     },
   },
+  stylistic: {
+    overrides: {
+      indent: ['error', 2],
+    },
+  },
 })
