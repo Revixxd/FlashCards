@@ -1,13 +1,14 @@
 <template>
-    <nav>
-        <RouterLink v-for="(route, key) in routes" :to="route.path" :key="key"> {{ route.name }}</RouterLink>
-    </nav>
+  <nav>
+    <RouterLink v-for="(route, key) in routes" :key="key" :to="route.path">
+      {{ route.name }}
+    </RouterLink>
+  </nav>
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from 'vue-router';
-import { routes } from '@src/routes';
-
+import { routes } from '@src/routes'
+import { RouterLink } from 'vue-router'
 </script>
 
 <style scoped>
