@@ -10,7 +10,15 @@ export default antfu({
   },
   stylistic: {
     overrides: {
-      indent: ['error', 2],
+      'indent': ['error', 2],
+      'object-property-newline': ['error', {
+        allowAllPropertiesOnSameLine: false,
+      }],
+      'object-curly-spacing': ['error', 'always'],
+      'object-curly-newline': ['error', {
+        multiline: true,
+        consistent: true,
+      }],
     },
   },
 })
