@@ -1,5 +1,6 @@
 import antfu from '@antfu/eslint-config'
 
+// https://eslint-config.antfu.me/rules
 export default antfu({
   vue: {
     overrides: {
