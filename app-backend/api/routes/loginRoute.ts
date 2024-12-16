@@ -1,8 +1,9 @@
 import express from 'express';
 import connectDb from '../utils/connectDb.js';
 import sanitizeInput from '../utils/sanitizeInput.js';
-import { checkPassword } from '../utils/auth.js';
+import { checkPassword } from '../controllers/auth.js';
 import User from '../models/User.js'; 
+import { createJwtToken } from '../controllers/jwt.js';
 
 const router = express.Router();
 
@@ -26,7 +27,8 @@ router.post('/', async (req: any, res: any) => {
         }
         const isPasswordCorrect = await checkPassword(sanitizedPassword, user.password);
         if(isPasswordCorrect){
-            return res.status(200).json({ message: 'You logged in' });
+            const token:string = await createJwtToken({user: user.id});
+            return res.status(200).json({ message: 'You logged in', token: token });
         }
         else{
             return res.status(401).json({ message: 'Password is incorrect' });

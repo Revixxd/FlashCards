@@ -7,7 +7,8 @@ import validator from 'validator';
 import sanitizeInput from '../utils/sanitizeInput.js';
 import connectDb from '../utils/connectDb.js';
 import User from '../models/User.js';
-import { hashPassword } from '../utils/auth.js';
+import { hashPassword } from '../controllers/auth.js';
+import { createJwtToken } from '../controllers/jwt.js';
 
 const router = Router();
 
@@ -51,9 +52,11 @@ router.post('/', async (req:any, res:any) => {
         });
 
         await newUser.save();
-        res.status(201).json({ message: 'User registered successfully' });
+        const token:string = await createJwtToken({user: sanitizedUsername});
+        res.status(201).json({ message: 'User registered successfully', jwttoken: token });
     } catch (error) {
-        res.status(500).json({ message: 'Internal server error' });
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error', error: error });
     }
 });
 
