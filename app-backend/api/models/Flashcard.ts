@@ -17,6 +17,6 @@ const FlashcardSchema: Schema = new Schema({
     flashcards: {type: [FlashcardItemSchema], required: true}
 });
 
-const User = mongoose.model<IFlashcard>('User', FlashcardSchema);
+const Flashcard = mongoose.model<IFlashcard>('Flashcard', FlashcardSchema);
 
-export default User;
+export default Flashcard;
