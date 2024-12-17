@@ -16,7 +16,7 @@ export const createJwtToken = (payload: object): Promise<string> => {
         })
     })
 }
-export const verifyJwtToken = (token: string): Promise<object> => {
+export const convertJwtToken = (token: string): Promise<object> => {
     return new Promise((resolve, reject) => {
         const { JWT_PRIVATE_KEY } = process.env;
         if (!JWT_PRIVATE_KEY) {
