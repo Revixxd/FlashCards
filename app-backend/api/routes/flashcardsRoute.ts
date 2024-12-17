@@ -25,7 +25,7 @@ const verifyJwtTokenAndConnectDb = async (req:any, res:any) => {
 }
 
 router.post("/showFlashcardList", async (req: any, res: any) => {
-    const userId = verifyJwtTokenAndConnectDb(req, res);
+    const userId = await verifyJwtTokenAndConnectDb(req, res);
     try {
         const flashcards = await Flashcard.find({ userId: userId },"flashcardName").exec();
         res.status(200).json(flashcards);
@@ -34,4 +34,33 @@ router.post("/showFlashcardList", async (req: any, res: any) => {
         res.status(500).json({ message: "Error retrieving flashcards", error });
     }
 });
+router.post('/createFlashcardSet', async (req: any, res: any) => {
+    const userId = await verifyJwtTokenAndConnectDb(req, res);
+    const flashcardName = sanitizeInput(req.body.flashcardName);
+    if (!flashcardName) {
+        return res.status(400).json({ message: "flashcardName required" });
+    }
+    try {
+        const flashcard = new Flashcard({ flashcardName, userId, flashcards: [] });
+        await flashcard.save();
+        res.status(200).json({ message: "flashcard created" });
+    } catch (error) {
+        console.log(error, "error creating flashcard");
+        res.status(500).json({ message: "Error creating flashcard", error });
+    }
+})
+router.post('/deleteFlashcardSet', async (req: any, res: any) => {
+    const userId = await verifyJwtTokenAndConnectDb(req, res);
+    const flashcardName = sanitizeInput(req.body.flashcardName);
+    if (!flashcardName) {
+        return res.status(400).json({ message: "flashcardName required" });
+    }
+    try {
+        await Flashcard.deleteOne({ flashcardName, userId });
+        res.status(200).json({ message: "flashcard deleted" });
+    } catch (error) {
+        console.log(error, "error deleting flashcard");
+        res.status(500).json({ message: "Error deleting flashcard", error });
+    }
+})
 export default router;
