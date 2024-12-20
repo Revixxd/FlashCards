@@ -1,124 +1,111 @@
-import express, { Request, Response } from "express";
-import mongoose from "mongoose";
-import connectDb from "../utils/connectDb.js";
+import express from "express";
+import type { Request, Response } from "express";
 import sanitizeInput from "../utils/sanitizeInput.js";
+import getUserId from "../utils/getUserId.js";
 import Flashcard from "../models/Flashcard.js";
-import { convertJwtToken } from "../controllers/jwt.js";
-
-interface IFlashcard {
-    front: string;
-    back: string;
-}
 
 const router = express.Router();
-const verifyJwtTokenAndConnectDb = async (req:any, res:any) => {
-    const connectionState = mongoose.connection.readyState;
-    if (connectionState === 0) {
-        await connectDb();
-    }
-    const jwtToken = sanitizeInput(req.body.token);
-    if (!jwtToken) {
-        return res.status(400).json({ message: "jwt token required" });
-    }
-    const userToken = await convertJwtToken(jwtToken);
 
-    const userId = (userToken as any).payload.user;
-    if (!userId) {
-        return res.status(400).json({ message: "user id not found in token" });
-    }
-    return userId;
-}
-
-router.post("/showFlashcardList", async (req: any, res: any) => {
-    const userId = await verifyJwtTokenAndConnectDb(req, res);
+router.post("/showFlashcardList", async (req: Request, res: Response): Promise<void> => {
+    const userId = await getUserId(req, res);
     try {
-        const flashcards = await Flashcard.find({ userId: userId },"flashcardName").exec();
+        const flashcards = await Flashcard.find({ userId }, "flashcardName").exec();
         res.status(200).json(flashcards);
     } catch (error) {
-        console.log(error, "error sending flashcards"); 
+        console.error(error, "error sending flashcards");
         res.status(500).json({ message: "Error retrieving flashcards", error });
     }
 });
-router.post('/createFlashcardSet', async (req: any, res: any) => {
-    const userId = await verifyJwtTokenAndConnectDb(req, res);
+
+router.post("/showUsersFlashcards", async (req: Request, res: Response): Promise<void> => {
+    try {
+        const userId = await getUserId(req, res);
+        if (!userId) {
+            res.status(400).json({ message: "User not found" });
+            return;
+        }
+
+        const flashcards = await Flashcard.find({ userId }).exec();
+        if (!flashcards || flashcards.length === 0) {
+            res.status(404).json({ message: "No flashcards found" });
+            return;
+        }
+
+        res.status(200).json(flashcards);
+    } catch (error) {
+
+        console.error("Error retrieving flashcards:", error);
+        res.status(500).json({ message: "Error retrieving flashcards", error });
+    }
+});
+
+router.post('/createFlashcardSet', async (req: Request, res: Response): Promise<void> => {
+    const userId = await getUserId(req, res);
     const flashcardName = sanitizeInput(req.body.flashcardName);
     if (!flashcardName) {
-        return res.status(400).json({ message: "flashcardName required" });
+        res.status(400).json({ message: "flashcardName required" });
+        return;
     }
     try {
         const flashcard = new Flashcard({ flashcardName, userId, flashcards: [] });
         await flashcard.save();
         res.status(200).json({ message: "flashcard created" });
     } catch (error) {
-        console.log(error, "error creating flashcard");
+        console.error(error, "error creating flashcard");
         res.status(500).json({ message: "Error creating flashcard", error });
     }
 })
-router.post('/deleteFlashcardSet', async (req: any, res: any) => {
-    const userId = await verifyJwtTokenAndConnectDb(req, res);
-    const flashcardName = sanitizeInput(req.body.flashcardName);
-    if (!flashcardName) {
-        return res.status(400).json({ message: "flashcardName required" });
+
+router.post('/deleteFlashcardSet', async (req: Request, res: Response): Promise<void> => {
+    const userId = await getUserId(req, res);
+    const flashcardId = sanitizeInput(req.body.flashcardId);
+    if (!flashcardId) {
+        res.status(400).json({ message: "flashcardId required" });
+        return;
     }
     try {
-        await Flashcard.deleteOne({ flashcardName, userId });
+        await Flashcard.deleteOne({ _id: flashcardId, userId }).then((result) => {
+            if (result.deletedCount === 0) {
+                res.status(400).json({ message: "flashcard not found" });
+                return;
+            }
+        })
         res.status(200).json({ message: "flashcard deleted" });
     } catch (error) {
-        console.log(error, "error deleting flashcard");
+        console.error(error, "error deleting flashcard");
         res.status(500).json({ message: "Error deleting flashcard", error });
     }
 })
-router.post('/addFlashcard', async (req: any, res: any) => {
-    const userId = await verifyJwtTokenAndConnectDb(req, res);
-    const flashcardName = sanitizeInput(req.body.flashcardName);
-    const front = sanitizeInput(req.body.front);
-    const back = sanitizeInput(req.body.back);
-    if (!flashcardName || !front || !back) {
-        return res.status(400).json({ message: "flashcardName, front, and back required" });
-    }
+
+router.post('/updateFlashcardSet', async (req: Request, res: Response): Promise<void> => {
     try {
-        const flashcard = await Flashcard.findOne({ flashcardName, userId });
-        if (!flashcard) {
-            return res.status(400).json({ message: "flashcard not found" });
-        }
-        flashcard.flashcards.push({ front, back });
-        await flashcard.save();
-        res.status(200).json({ message: "flashcard added" });
-    } catch (error) {
-        console.log(error, "error adding flashcard");
-        res.status(500).json({ message: "Error adding flashcard", error });
-    }
-})
-router.post('/updateFlashcards', async (req: any, res: any) => {
-    try{
 
-        const userId = await verifyJwtTokenAndConnectDb(req, res);
-        console.log(userId)
-        const flashcardName = sanitizeInput(req.body.flashcardName);
-        const flashcards = req.body.flashcards; 
-        console.log("test");
-        const sanitizedFlashcards = flashcards.map((flashcard: IFlashcard) => ({
-            front: sanitizeInput(flashcards.front),
-            back: sanitizeInput(flashcards.back),
+        const userId: string | void = await getUserId(req, res);
+        const flashcardId: string = sanitizeInput(req.body.flashcardId);
+        const flashcards = req.body.flashcards;
+        const sanitizedFlashcards = flashcards.map((flashcard: { frontName: string, backName: string }) => ({
+            frontName: sanitizeInput(flashcard.frontName),
+            backName: sanitizeInput(flashcard.backName),
         }));
-        if (!flashcardName || !flashcards || !Array.isArray(flashcards)) {
-            return res.status(400).json({ message: "flashcardName and flashcards array required" });
+        if (!flashcardId || !flashcards || !Array.isArray(flashcards)) {
+            res.status(400).json({ message: "flashcardName and flashcards array required" });
+            return;
         }
-    
 
-
-        const flashcard = await Flashcard.findOne({ flashcardName, userId });
+        const flashcard = await Flashcard.findOne({ _id: flashcardId, userId });
         if (!flashcard) {
-            return res.status(400).json({ message: "flashcard not found" });
+            res.status(400).json({ message: "flashcard not found" });
+            return;
         }
 
-        flashcard.set('flashcards', sanitizedFlashcards as IFlashcard[]);
+        flashcard.set('flashcards', sanitizedFlashcards);
         await flashcard.save();
-        res.status(200).json({ message: "flashcards updated" });
+        res.status(200).json({ message: "flashcard set updated" });
+        return;
     }
- 
- catch (error) {
-        console.log(error, "error updating flashcards");
+
+    catch (error) {
+        console.error(error, "error updating flashcards");
         res.status(500).json({ message: "Error updating flashcards", error });
     }
 });
