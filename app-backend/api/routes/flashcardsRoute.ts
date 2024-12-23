@@ -1,15 +1,15 @@
 import express from "express";
-import showFlashcardList from "./flashcardsRoutes/showFlashcardList.js";
-import showUserFlashcards from "./flashcardsRoutes/showUserFlashcards.js";
+import getUserFlashcardList from "./flashcardsRoutes/getUserFlashcardList.js";
+import getUserFlashcards from "./flashcardsRoutes/getUserFlashcards.js";
 import createFlashcardSet from "./flashcardsRoutes/createFlashcardSet.js";
 import deleteFlashcardSet from "./flashcardsRoutes/deleteFlashcardSet.js";
 import updateFlashcardSet from "./flashcardsRoutes/updateFlashcardSet.js";
 const router = express.Router();
 
-router.post("/showFlashcardList", showFlashcardList);
-router.post("/showUserFlashcards", showUserFlashcards );
+router.get("/getUserFlashcardList", getUserFlashcardList);
+router.get("/getUserFlashcards", getUserFlashcards );
 router.post('/createFlashcardSet', createFlashcardSet);
-router.post('/deleteFlashcardSet', deleteFlashcardSet);
 router.post('/updateFlashcardSet', updateFlashcardSet );
+router.delete('/deleteFlashcardSet', deleteFlashcardSet);
 
 export default router;
