@@ -5,6 +5,7 @@ import { fileURLToPath } from 'url';
 import registerRoute from './routes/registerRoute.js';
 import loginRoute from './routes/loginRoute.js';
 import flashcardsRoute from './routes/flashcardsRoute.js';
+import refreshTokenRoute from './routes/refreshTokenRoute.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -17,7 +18,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use('/register', registerRoute);
 app.use('/login', loginRoute);
-app.use('/flashcards',flashcardsRoute);
+app.use('/flashcards', flashcardsRoute);
+app.use('/refresh-token', refreshTokenRoute);
 
 app.use(express.static(path.join(__dirname, '/public')));
 
