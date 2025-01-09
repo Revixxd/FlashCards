@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import getUserId from "../../utils/getUserId.js";
 import Flashcard from "../../models/Flashcard.js";
 
-const showFlashcardList = async (req: Request, res: Response): Promise<void> => {
+const getUserFlashcardList = async (req: Request, res: Response): Promise<void> => {
     try {
         const userId = await getUserId(req, res);
         if (!userId) {
@@ -18,4 +18,4 @@ const showFlashcardList = async (req: Request, res: Response): Promise<void> => 
     }
 };
 
-export default showFlashcardList;
+export default getUserFlashcardList;

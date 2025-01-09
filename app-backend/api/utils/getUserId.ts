@@ -9,7 +9,8 @@ const getUserId = async (req: express.Request, res: express.Response): Promise<v
     if (connectionState === 0) {
         await connectDb();
     }
-    const jwtToken = sanitizeInput(req.body.token);
+    const authHeader = sanitizeInput(req.headers["authorization"]);
+    const jwtToken = authHeader?.split(" ")[1];
     if (!jwtToken) {
          res.status(400).json({ message: "jwt token required" });
          return
