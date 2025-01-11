@@ -106,4 +106,26 @@ provide('toggled', toggled);
   }
 
 }
+
+.icon__hamburger {
+  width: 20px;
+  height: 20px;
+  margin: 0 16px 0 0;
+  cursor: pointer;
+}
+
+.icon__plus {
+  width: 30px;
+  height: 30px;
+  margin: 0 16px 0 0;
+  cursor: pointer;
+  color: $color-light;
+}
+.icon__logo {
+  width: 30px;
+  height: 30px;
+  margin: 0 0 0 10px;
+  cursor: pointer;
+  color: $color-light;
+}
 </style>
