@@ -4,9 +4,11 @@
       v-for="(route, key) in routes"
       :key="key"
       :to="route.path"
+      class="nav__link"
+      active-class="active"
     >
-      <li :class="['nav__list', { 'active': isActive(route.name) }]">
-        <img class="nav__icon" src="" alt="">
+      <li :class="['nav__list', { 'nav__list--active': isActive(route.name) }]">
+        <font-awesome-icon :icon="getIcon(route.name)" class="nav__icon" />
         {{ route.name }}
       </li>
     </RouterLink>
@@ -30,10 +32,24 @@ watch(route, (newRoute) => {
 })
 
 selectedRoute.value = route.name
+
+const getIcon = (routeName: string) => {
+  console.log(routeName)
+  switch (routeName) {
+    case 'Home':
+      return ['fas', 'home']
+    case 'Dashboard':
+      return ['fas', 'folder-open']
+    case 'Login':
+      return ['fas', 'sign-in-alt']
+    default:
+      return ['fas', 'question']
+  }
+}
 </script>
 
 <style scoped lang="scss">
-@import "../../../styles/variables.scss";
+@import "@src/styles/variables.scss";
 
 .nav {
   width: 225px;
@@ -61,7 +77,7 @@ selectedRoute.value = route.name
     margin: 0 16px 0 0;
   }
 
-  .active {
+  &__list--active {
     border-radius: 10px;
     background-color: $primary-color;
     padding: 0 16px 0 8px;

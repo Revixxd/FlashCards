@@ -2,7 +2,7 @@
   <div class="dashboard-container">
     <Header  />
     <Navigation />
-    <div class="dashboard-content">
+
       <div class="fishcards">
         <h1>Ostatnie zestawy</h1>
         <div >
@@ -22,7 +22,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script setup lang="ts">
@@ -34,7 +33,7 @@ const emit = defineEmits(['increment'])
 </script>
 
 <style scoped lang="scss">
-@import "../../../styles/variables.scss";
+@import "@src/styles/variables.scss";
 
 .fishcards{
   margin-top: 80px;
@@ -46,6 +45,7 @@ const emit = defineEmits(['increment'])
     display: flex;
     justify-content: start;
     align-items: start;
+    flex-wrap: wrap;
   }
   &__box {
     min-width: 290px;
