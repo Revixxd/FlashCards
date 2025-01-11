@@ -33,8 +33,8 @@ router.post('/', async (req: express.Request, res: express.Response): Promise<vo
 
         const isPasswordCorrect = await checkPassword(sanitizedPassword, user.password);
         if (isPasswordCorrect) {
-            const accessToken: string = await createAccessToken({ user: user.id });
-            const refreshToken: string = await createRefreshToken({ user: user.id });
+            const accessToken: string = await createAccessToken({ userId: user.id });
+            const refreshToken: string = await createRefreshToken({ userId: user.id });
 
             user.refreshToken = refreshToken;
             await user.save();
