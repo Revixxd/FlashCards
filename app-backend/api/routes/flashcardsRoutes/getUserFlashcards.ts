@@ -1,14 +1,15 @@
 import { Request, Response } from "express";
-import getUserId from "../../utils/getUserId.js";
 import Flashcard from "../../models/Flashcard.js";
+import { authorizeUser } from "../../controllers/auth.js";
 
 const getUserFlashcards = async (req: Request, res: Response): Promise<void> => {
     try {
-        const userId = await getUserId(req, res);
+        const userId = await authorizeUser(req, res);
         if (!userId) {
             res.status(400).json({ message: "User not found" });
             return;
         }
+
         const flashcards = await Flashcard.find({ userId }).exec();
         if (!flashcards || flashcards.length === 0) {
             res.status(404).json({ message: "No flashcards found" });

@@ -2,7 +2,7 @@ import express from 'express';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import User from '../models/User.js';
-import { createJwtToken } from '../controllers/jwt.js';
+import { createAccessToken } from '../controllers/jwt.js';
 import sanitizeInput from '../utils/sanitizeInput.js';
 import connectDb from '../utils/connectDb.js';
 
@@ -31,7 +31,7 @@ router.post('/', async (req: express.Request, res: express.Response):Promise<voi
             return;
         }
 
-        const newAccessToken = await createJwtToken({ userId: user._id });
+        const newAccessToken = await createAccessToken({ userId: user._id });
         res.status(200).json({ accessToken: newAccessToken });
     } catch (error) {
         console.error("Error refreshing token:", error);
