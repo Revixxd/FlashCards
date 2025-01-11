@@ -6,14 +6,18 @@
       <div class="fishcards">
         <h1>Ostatnie zestawy</h1>
         <div >
-          <ul class="fishcards_content">
-            <li class="fishcards_content_box">
-              <h3>Name</h3> 
-              <p>description</p>
-              <p>creator</p>
+          <ul class="fishcards__content">
+            <li class="fishcards__box">
+              <h3 class="box__title">Name</h3> 
+              <p class="box__descrption">description</p>
+              <div class="creator">
+                <img src="" alt="" class="creator__img">
+                <p class="creator__name">creator</p>
+                <span class="creator__role">nauczyciel</span>
+              </div>
             </li>
-            <li class="fishcards_content_box">Item 2</li>
-            <li class="fishcards_content_box">Item 3</li>
+            <li class="fishcards__box">Item 2</li>
+            <li class="fishcards__box">Item 3</li>
           </ul>
         </div>
       </div>
@@ -38,20 +42,20 @@ const emit = defineEmits(['increment'])
   padding: 16px;
   box-sizing: border-box;
   
-  &_content {
+  &__content {
     display: flex;
     justify-content: start;
     align-items: start;
-    &_box {
-      min-width: 290px;
-      height: 196px;
-      background-color: $primary-color;
-      border-radius: 10px;
-      margin: 0 16px 16px 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: start;
-    }
+  }
+  &__box {
+    min-width: 290px;
+    height: 196px;
+    background-color: $primary-color;
+    border-radius: 10px;
+    margin: 0 16px 16px 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
   }
 
 }

@@ -1,12 +1,12 @@
 <template>
-  <nav>
+  <nav class="nav">
     <RouterLink
       v-for="(route, key) in routes"
       :key="key"
       :to="route.path"
     >
-      <li :class="['nav_list', { 'active': isActive(route.name) }]">
-        <img class="nav_list_icon" src="" alt="">
+      <li :class="['nav__list', { 'active': isActive(route.name) }]">
+        <img class="nav__icon" src="" alt="">
         {{ route.name }}
       </li>
     </RouterLink>
@@ -25,20 +25,17 @@ const isActive = (routeName: string) => {
   return selectedRoute.value === routeName
 }
 
-// Watch for route changes
 watch(route, (newRoute) => {
   selectedRoute.value = newRoute.name
 })
 
-// Ustawienie początkowej wartości selectedRoute
 selectedRoute.value = route.name
 </script>
 
 <style scoped lang="scss">
 @import "../../../styles/variables.scss";
 
-
-nav {
+.nav {
   width: 225px;
   padding: 8px 24px 0 0;
   position: fixed;
@@ -47,28 +44,28 @@ nav {
   left: 0;
   z-index: 1000;
   box-sizing: border-box;
-}
 
-.nav_list {
-  width: 200px;
-  height: 40px;
-  display: flex;
-  justify-self: start;
-  align-items: center;
-  padding: 0 16px 0 8px;
-  box-sizing: border-box;
-}
+  &__list {
+    width: 200px;
+    height: 40px;
+    display: flex;
+    justify-self: start;
+    align-items: center;
+    padding: 0 16px 0 8px;
+    box-sizing: border-box;
+  }
+  
+  &__icon {
+    width: 20px;
+    height: 20px;
+    margin: 0 16px 0 0;
+  }
 
-.nav_list_icon {
-  width: 20px;
-  height: 20px;
-  margin: 0 16px 0 0;
-}
-
-.nav_list.active {
-  border-radius: 10px;
-  background-color: $primary-color;
-  padding: 0 16px 0 8px;
-  color: $text-color;
+  .active {
+    border-radius: 10px;
+    background-color: $primary-color;
+    padding: 0 16px 0 8px;
+    color: $text-color;
+  }
 }
 </style>

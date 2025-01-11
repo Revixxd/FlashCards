@@ -1,24 +1,24 @@
 <template>
-  <div class="header">
-    <div class="header_left">
-      <button class="header_left_humburger">hunburger</button>
-      <img src="" alt="" class="header_left_logo"></img>
+  <header class="header">
+    <div class="header__element">
+      <button class="button__hamburger">hamburger</button>
+      <img src="" alt="" class="img__hamburger"></img>
     </div>
-    <div class="header_middle_search">
+    <div class="header__element">
       <input
         v-model="searchQuery"
         type="text"
-        class="search_input"
+        class="search__input"
         placeholder="Search..."
         @input="onSearch"
       />
     </div>
-    <div class="header_right">
-      <button class="header_right_add">+</button>
-      <button class="header_right_upgrade">upgrade</button>
-      <img src="" alt="" class="header_right_profil">
+    <div class="header__element">
+      <button class="profil__add profil">+</button>
+      <button class="profil__upgrade profil">upgrade</button>
+      <img src="" alt="" class="profil__img profil">
     </div>
-  </div>
+  </header>
 </template>
 
 <script setup lang="ts">
@@ -43,26 +43,25 @@ const searchQuery = ref('');
   left: 0;
   right: 0;
   z-index: 1000;
+  &__element {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+  }
 }
 
-.header_right, .header_middle_search, .header_left {
-  display: flex;
-  align-items: center;
-  justify-self: center;
-}
-
-.header_right_add, .header_right_upgrade, .header_right_profil {
+.profil {
   margin: 0 16px 0 0;
 }
 
-.header_right_profil {
+.profil__img {
   width: 40px;
   height: 40px;
   background-color: $primary-color;
   border-radius: 50%;
 }
 
-.search_input {
+.search__input {
   background-color: $primary-color;
   max-width: 550px;
   min-width: 260px;
