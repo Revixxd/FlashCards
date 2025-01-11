@@ -10,10 +10,9 @@ const FlashcardItemSchema: Schema = new Schema({
     backName: {type: String, required: true}
 });
 
-
 const FlashcardSchema: Schema = new Schema({
     flashcardName: { type: String, required: true, unique: false },
-    userId: {type: Types.ObjectId, ref: "Users"},
+    userId: {type: Types.ObjectId, ref: "Users", required: true},
     flashcards: {type: [FlashcardItemSchema], required: true}
 });
 

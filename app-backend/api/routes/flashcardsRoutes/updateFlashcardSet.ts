@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
 import sanitizeInput from "../../utils/sanitizeInput.js";
-import getUserId from "../../utils/getUserId.js";
 import Flashcard from "../../models/Flashcard.js";
+import { authorizeUser } from "../../controllers/auth.js";
 
 const updateFlashcardSet = async (req: Request, res: Response): Promise<void> => {
     try {
-        const userId: string | void = await getUserId(req, res);
+        const userId = await authorizeUser(req, res);
         if (!userId) {
-            res.status(400).json({ message: "User not found" });
-            return;
+             res.status(400).json({ message: "User not found" });
+             return;
         }
 
-        const flashcardId: string = sanitizeInput(req.body.flashcardId);
+        const flashcardId = sanitizeInput(req.body.flashcardId);
         const flashcards = req.body.flashcards;
         if (!flashcardId || !flashcards || !Array.isArray(flashcards)) {
             res.status(400).json({ message: "flashcardId and flashcards array required" });

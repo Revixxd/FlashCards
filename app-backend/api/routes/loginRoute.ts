@@ -3,7 +3,7 @@ import connectDb from '../utils/connectDb.js';
 import sanitizeInput from '../utils/sanitizeInput.js';
 import { checkPassword } from '../controllers/auth.js';
 import User from '../models/User.js';
-import { createJwtToken, createRefreshToken } from '../controllers/jwt.js';
+import { createAccessToken, createRefreshToken } from '../controllers/jwt.js';
 
 const router = express.Router();
 
@@ -15,14 +15,16 @@ router.post('/', async (req: express.Request, res: express.Response): Promise<vo
 
     if (!sanitizedUsernameOrEmail || !sanitizedPassword) {
         res.status(400).json({ message: 'Email and password are required' });
-        return
+        return;
     }
 
     try {
-        let user = await User.findOne({ username: sanitizedUsernameOrEmail }).exec();
-        if (!user) {
-            user = await User.findOne({ email: sanitizedUsernameOrEmail }).exec();
-        }
+        const user = await User.findOne({
+            $or: [
+                { username: sanitizedUsernameOrEmail },
+                { email: sanitizedUsernameOrEmail }
+            ]
+        }).exec();
 
         if (!user) {
             res.status(404).json({ message: 'User not found' });
@@ -31,13 +33,21 @@ router.post('/', async (req: express.Request, res: express.Response): Promise<vo
 
         const isPasswordCorrect = await checkPassword(sanitizedPassword, user.password);
         if (isPasswordCorrect) {
-            const accessToken: string = await createJwtToken({ user: user.id });
-            const refreshToken: string = await createRefreshToken({ user: user.id });
+            const accessToken: string = await createAccessToken({ userId: user.id });
+            const refreshToken: string = await createRefreshToken({ userId: user.id });
 
             user.refreshToken = refreshToken;
             await user.save();
 
-            res.status(200).json({ message: 'You logged in', accessToken: accessToken, refreshToken: refreshToken });
+            res.cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                secure: false, // Set to true if using HTTPS
+                sameSite: 'strict',
+                maxAge: 24 * 60 * 60 * 1000
+            });
+            res.header('Authorization', `Bearer ${accessToken}`);
+
+            res.status(200).json({ message: 'You logged in' });
             return;
         } else {
             res.status(401).json({ message: 'Password is incorrect' });
