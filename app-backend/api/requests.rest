@@ -1,0 +1,62 @@
+### Root
+GET http://localhost:3000
+
+### Register
+POST http://localhost:3000/register
+Content-Type: application/json
+
+{
+    "username": "login",
+    "password": "password",
+    "email": "test@test2.pl"
+}
+
+### Login
+POST http://localhost:3000/login
+Content-Type: application/json
+
+{
+    "usernameOrEmail": "login",
+    "password": "password"
+}
+
+
+### Create Flashcard Set
+POST http://localhost:3000/flashcards/createFlashcardSet
+Content-Type: application/json
+Authorization: token your-token-here
+
+{
+    "flashcardName": "your-flashcard-name",
+}
+
+### Show Flashcard List
+GET http://localhost:3000/flashcards/getUserFlashcardList
+Authorization: token your-token-here
+
+
+### Update Flashcards
+POST http://localhost:3000/flashcards/updateFlashcardSet
+Content-Type: application/json
+Authorization: token your-token-here
+
+{
+    "flashcardId": "67811ea25a0cdbb40dbbf305",
+    "flashcards": [
+        { "frontName": "your-front-name1", "backName": "your-back-name" },
+        { "frontName": "your-font-name2", "backName": "your-back-name2" }
+    ]
+}
+
+### Delete Flashcard Set
+DELETE http://localhost:3000/flashcards/deleteFlashcardSet
+Content-Type: application/json
+Authorization: token your-token-here
+
+{
+    "flashcardId": "flashcardId"
+}
+
+### Get User Flashcards
+GET http://localhost:3000/flashcards/getUserFlashcards
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXIiOiI2NzVkOGM4NWUzNjBiZWM5MDQzNTMwNDAifSwiaWF0IjoxNzM2NTM2ODgxLCJleHAiOjE3MzY1MzY4OTF9.2eTx5_uG9ogMzqjFSDAcBuMg6J5nJ8CBwdBYcx6ogsE
