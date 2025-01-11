@@ -1,8 +1,8 @@
 <template>
   <header class="header">
     <div class="header__element">
-      <button class="button__hamburger">hamburger</button>
-      <img src="" alt="" class="img__hamburger"></img>
+      <font-awesome-icon :icon="['fas', 'bars']" class="icon__hamburger" />
+      <font-awesome-icon :icon="['fas', 'layer-group']"  class="icon__logo"/>
     </div>
     <div class="header__element">
       <input
@@ -14,7 +14,7 @@
       />
     </div>
     <div class="header__element">
-      <button class="profil__add profil">+</button>
+      <font-awesome-icon :icon="['fas', 'square-plus']" class="icon__plus" />
       <button class="profil__upgrade profil">upgrade</button>
       <img src="" alt="" class="profil__img profil">
     </div>
@@ -28,7 +28,7 @@ const searchQuery = ref('');
 </script>
 
 <style scoped lang="scss">
-@import "../../../styles/variables.scss";
+@import "@src/styles/variables.scss";
 
 .header {
   width: 100%;
@@ -43,11 +43,12 @@ const searchQuery = ref('');
   left: 0;
   right: 0;
   z-index: 1000;
-  &__element {
+  .header__element {
     display: flex;
     align-items: center;
     justify-self: center;
   }
+
 }
 
 .profil {
@@ -72,5 +73,27 @@ const searchQuery = ref('');
   color: $text-color;
   outline: none;
   box-sizing: border-box;
+}
+
+.icon__hamburger {
+  width: 20px;
+  height: 20px;
+  margin: 0 16px 0 0;
+  cursor: pointer;
+}
+
+.icon__plus {
+  width: 30px;
+  height: 30px;
+  margin: 0 16px 0 0;
+  cursor: pointer;
+  color: $color-light;
+}
+.icon__logo {
+  width: 30px;
+  height: 30px;
+  margin: 0 0 0 10px;
+  cursor: pointer;
+  color: $color-light;
 }
 </style>
