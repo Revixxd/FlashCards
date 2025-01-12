@@ -12,7 +12,6 @@ const getUserFlashcardList = async (req: Request, res: Response): Promise<void> 
         res.status(200).json(flashcards);
     } catch (error) {
         console.error("Error retrieving flashcards:", error);
-        res.status(500).json({ message: "Error retrieving flashcards", error });
     }
 };
 

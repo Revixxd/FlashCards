@@ -21,7 +21,6 @@ const deleteFlashcardSet = async (req: Request, res: Response): Promise<void> =>
         res.status(200).json({ message: "flashcard deleted" });
     } catch (error) {
         console.error("Error deleting flashcard:", error);
-        res.status(500).json({ message: "Error deleting flashcard", error });
     }
 };
 
