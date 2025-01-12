@@ -8,7 +8,7 @@ export interface RequestOptions {
 }
 
 export enum GETRequestEnum {
-    GETUSERFLASHCARDS = 'flashcards/getUserFlashcards'
+  GETUSERFLASHCARDS = 'flashcards/getUserFlashcards',
 }
 
 export enum POSTRequestEnum {
@@ -19,31 +19,31 @@ export enum POSTRequestEnum {
 }
 
 export enum DELETERequestEnum {
-    DELETEFLASHCARDSET = 'flashcards/deleteFlashcardSet',
+  DELETEFLASHCARDSET = 'flashcards/deleteFlashcardSet',
 }
 
 // flashcards
 export interface Flashcard {
-    frontName: string
-    backName: string
+  frontName: string
+  backName: string
 }
 
 // auth
-export type LoginProps = { usernameOrEmail: string, password: string }
-export type RegisterProps = { username: string, email: string, password: string }
+export interface LoginProps { usernameOrEmail: string, password: string }
+export interface RegisterProps { username: string, email: string, password: string }
 
 // flashcards request props
 export type GetUserFlashcardsProps = null
-export type CreateFlashcardSetProps = { 
-    title: string, 
-    description: string 
+export interface CreateFlashcardSetProps {
+  title: string
+  description: string
 }
-export type UpdateFlashcardSetProps = { 
-    lashcardSetId: string, 
-    flashcards: Flashcard[] 
+export interface UpdateFlashcardSetProps {
+  lashcardSetId: string
+  flashcards: Flashcard[]
 }
-export type DeleteFlashcardSetProps = { 
-    flashcardSetId: string 
+export interface DeleteFlashcardSetProps {
+  flashcardSetId: string
 }
 
 export interface GETRequestProps {
@@ -58,5 +58,5 @@ export interface POSTRequestProps {
 }
 
 export interface DELETERequestProps {
-    [DELETERequestEnum.DELETEFLASHCARDSET]: DeleteFlashcardSetProps
+  [DELETERequestEnum.DELETEFLASHCARDSET]: DeleteFlashcardSetProps
 }
