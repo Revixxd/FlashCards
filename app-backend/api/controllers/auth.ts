@@ -19,7 +19,7 @@ export const checkPassword = async (password: string, hashedPassword: string): P
     return match;
 };
 
-export const authorizeUser = async (req: Request, res: Response): Promise<string | void> => {
+export const authorizeUser = async (req: Request, res: Response): Promise<string | Error> => {
     const connectionState = mongoose.connection.readyState;
     if (connectionState === 0) {
         await connectDb();
@@ -41,14 +41,13 @@ export const authorizeUser = async (req: Request, res: Response): Promise<string
             res.header("Authorization", `Bearer ${newAccessToken}`);
             return userId.payload.userId;
 
-        }
-        else {
-            res.status(401).json({ message: "Invalid access token" });
-            return;
+        } else {
+            return new Error("Refresh token or accessToken required");
         }
 
+
     } catch (error) {
-        if (error instanceof jwt.TokenExpiredError) {
+        if (error instanceof jwt.TokenExpiredError && refreshToken) {
             try {
                 userId = await convertRefreshToken(refreshToken);
                 const newAccessToken = await createAccessToken({ userId });
@@ -56,16 +55,16 @@ export const authorizeUser = async (req: Request, res: Response): Promise<string
                 return userId.payload.userId;
             } catch (refreshError) {
                 res.status(401).json({ message: "Invalid refresh token" });
-                return userId.payload.userId;
+                return new Error("Invalid refresh token");
             }
         } else if (error instanceof jwt.JsonWebTokenError) {
             res.status(401).json({ message: "Invalid access token" });
-            return;
+            return new Error("Invalid access token");
         }
         else {
             console.error("Error authorizing user:", error);
             res.status(500).json({ message: "Internal server error" });
-            return;
+            return new Error("Internal server error");
         }
 
     }

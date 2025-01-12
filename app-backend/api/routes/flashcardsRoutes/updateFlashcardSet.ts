@@ -34,7 +34,6 @@ const updateFlashcardSet = async (req: Request, res: Response): Promise<void> =>
         res.status(200).json({ message: "flashcard set updated" });
     } catch (error) {
         console.error("Error updating flashcards:", error);
-        res.status(500).json({ message: "Error updating flashcards", error });
     }
 };
 
