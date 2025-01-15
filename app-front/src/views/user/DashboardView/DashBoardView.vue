@@ -3,21 +3,19 @@
     <Header  />
     <Navigation />
 
-      <div class="fishcards">
+      <div class="box">
         <h1>Ostatnie zestawy</h1>
         <div >
-          <ul class="fishcards__content">
-            <li class="fishcards__box">
+          <ul class="box__content">
+            <li class="box__box">
               <h3 class="box__title">Name</h3> 
               <p class="box__descrption">description</p>
               <div class="creator">
-                <img src="" alt="" class="creator__img">
+                <img src="" alt="profile picture" class="profil__img">
                 <p class="creator__name">creator</p>
                 <span class="creator__role">nauczyciel</span>
               </div>
             </li>
-            <li class="fishcards__box">Item 2</li>
-            <li class="fishcards__box">Item 3</li>
           </ul>
         </div>
       </div>
@@ -28,18 +26,15 @@
 import Navigation from '@FlashCardsUi/Navigation/Navigation.vue'
 import Header from '@FlashCardsUi/Navigation/Header.vue'
 
-const emit = defineEmits(['increment'])
-
 </script>
 
 <style scoped lang="scss">
 @import "@src/styles/variables.scss";
 
-.fishcards{
+.box{
   margin-top: 80px;
   margin-left: 225px;
   padding: 16px;
-  box-sizing: border-box;
   
   &__content {
     display: flex;

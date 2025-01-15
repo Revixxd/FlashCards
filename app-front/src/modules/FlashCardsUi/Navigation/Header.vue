@@ -16,7 +16,7 @@
     <div class="header__element">
       <font-awesome-icon :icon="['fas', 'square-plus']" class="icon__plus" />
       <button class="profil__upgrade profil">upgrade</button>
-      <img src="" alt="" class="profil__img profil">
+      <img src="" alt="profile picture" class="profil__img profil">
     </div>
   </header>
 </template>
@@ -37,7 +37,6 @@ const searchQuery = ref('');
   display: flex;
   justify-content: space-between;
   background-color: $background-color;
-  box-sizing: border-box;
   position: fixed;
   top: 0;
   left: 0;
@@ -72,7 +71,7 @@ const searchQuery = ref('');
   padding: 0 10px;
   color: $text-color;
   outline: none;
-  box-sizing: border-box;
+
 }
 
 .icon__hamburger {

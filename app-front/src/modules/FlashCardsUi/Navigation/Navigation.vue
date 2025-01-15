@@ -34,7 +34,6 @@ watch(route, (newRoute) => {
 selectedRoute.value = route.name
 
 const getIcon = (routeName: string) => {
-  console.log(routeName)
   switch (routeName) {
     case 'Home':
       return ['fas', 'home']
@@ -59,7 +58,6 @@ const getIcon = (routeName: string) => {
   bottom: 0;
   left: 0;
   z-index: 1000;
-  box-sizing: border-box;
 
   &__list {
     width: 200px;
@@ -68,7 +66,6 @@ const getIcon = (routeName: string) => {
     justify-self: start;
     align-items: center;
     padding: 0 16px 0 8px;
-    box-sizing: border-box;
   }
   
   &__icon {
