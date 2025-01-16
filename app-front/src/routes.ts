@@ -5,9 +5,9 @@ import LoginView from './views/main/LoginView/LoginView.vue'
 import DashBoardView from './views/user/DashboardView/DashBoardView.vue'
 
 export const routes = [
-  { path: '/', component: HomeView, name: 'home' },
-  { path: '/dashboard', component: DashBoardView, name: 'dashboard' },
-  { path: '/login', component: LoginView, name: 'login' },
+  { path: '/', component: HomeView, name: 'Home' },
+  { path: '/dashboard', component: DashBoardView, name: 'Dashboard' },
+  { path: '/login', component: LoginView, name: 'Login' },
 ]
 
 export const router = createRouter({
