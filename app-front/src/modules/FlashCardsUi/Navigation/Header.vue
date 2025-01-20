@@ -16,7 +16,7 @@
     <div class="header__element">
       <font-awesome-icon :icon="['fas', 'square-plus']" class="icon__plus" />
       <button class="profil__upgrade profil">upgrade</button>
-      <img src="" alt="profile picture" class="profil__img profil">
+      <img src="" alt="user profile picture" class="profil__img profil">
     </div>
   </header>
 </template>
