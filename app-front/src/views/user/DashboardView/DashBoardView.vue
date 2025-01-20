@@ -23,11 +23,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { reactive } from 'vue';
 import Navigation from '@FlashCardsUi/Navigation/Navigation.vue';
 import Header from '@FlashCardsUi/Navigation/Header.vue';
 
-const flashcards = ref([
+const flashcards = reactive([
   {
     title: 'Matematyka',
     amount: 12,
