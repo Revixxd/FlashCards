@@ -1,23 +1,46 @@
 <template>
-  <div class="dashboard-container">
+  <div class="dashboard">
     <Header />
     <Navigation />
-
-    <div class="container">
-      <h1>Ostatnie zestawy</h1>
-      <div>
+    <div class="test">
+      <h2>Last sets</h2>
+        <ul class="list">
+          <li v-for="(flashcard, index) in flashcards" :key="index" class="box">
+              <font-awesome-icon :icon="['fas', 'forward']" class="box__icon"/>
+            <div class="box__info">
+              <h3>{{ flashcard.title }}</h3>
+              <p class="box__info__text">FlashCards set {{ flashcard.amount }} terms creator {{ flashcard.creator }}</p>
+            </div>
+          </li>
+        </ul>
+    </div>
+    <div class="">
+      <h2>Sets recomended for you</h2>
         <ul class="list">
           <li v-for="(flashcard, index) in flashcards" :key="index" class="content">
             <h3 class="content__title">{{ flashcard.title }}</h3>
             <p class="content__description">{{ flashcard.amount }} flashcards</p>
             <div class="creator">
-              <img :src="flashcard.img" alt="profile picture" class="creator__img">
+              <font-awesome-icon :icon="['fas', 'user']" class="creator__img" />
               <p class="creator__name">{{ flashcard.creator }}</p>
               <span class="creator__role">{{ flashcard.role }}</span>
             </div>
           </li>
         </ul>
-      </div>
+    </div>
+    <div class="">
+      <h2>Popural flashcards</h2>
+        <ul class="list">
+          <li v-for="(flashcard, index) in flashcards" :key="index" class="content">
+            <h3 class="content__title">{{ flashcard.title }}</h3>
+            <p class="content__description">{{ flashcard.amount }} flashcards</p>
+            <div class="creator">
+              <font-awesome-icon :icon="['fas', 'user']" class="creator__img" />
+              <p class="creator__name">{{ flashcard.creator }}</p>
+              <span class="creator__role">{{ flashcard.role }}</span>
+            </div>
+          </li>
+        </ul>
     </div>
   </div>
 </template>
@@ -55,16 +78,13 @@ const flashcards = reactive([
 <style scoped lang="scss">
 @import "@src/styles/variables.scss";
 
-.dashboard-container {
+.dashboard {
   background-color: $background-color;
   color: $text-color;
+  max-width: 1300px;
+  margin: 80px auto 0 230px;
+  padding: 0 32px;
 }
-.container{
-  margin-top: 80px;
-  margin-left: 225px;
-  padding: 16px;
-}
-
 .content {
   min-width: 290px;
   height: 156px;
@@ -75,6 +95,8 @@ const flashcards = reactive([
   flex-direction: column;
   justify-content: start;
   cursor: pointer;
+  border-bottom: 4px solid transparent;
+  flex-wrap: wrap;
 
   &__title {
     font-size: 20px;
@@ -124,6 +146,46 @@ const flashcards = reactive([
   }
   &__role {
     font-size: 14px;
+  }
+}
+
+.box {
+  min-width: 255px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  cursor: pointer;
+  padding-inline: 15px;
+  border-radius: 10px;
+
+  &__icon {
+    width: 15px;
+    height: 15px;
+    margin: 0 20px 0 0;
+    padding: 10px;
+    background-color: $secondary-color;
+    border-radius: 10px;
+  }
+
+  &__info {
+
+    &__text {
+      font-size: 14px;
+    }
+  }
+  &:hover {
+    background-color: $secondary-color;
+  }
+}
+
+@media (max-width: 600px) {
+  .dashboard {
+    margin: 80px auto 0;
+    padding: 0 10px;
+  }
+  .list {
+    padding-inline: auto;
   }
 }
 </style>

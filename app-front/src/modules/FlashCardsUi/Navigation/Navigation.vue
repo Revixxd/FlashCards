@@ -16,9 +16,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch  } from 'vue'
 import { routes } from '@src/routes'
 import { RouterLink, useRoute } from 'vue-router'
+
 
 const selectedRoute = ref<string | null>(null)
 const route = useRoute()
@@ -80,5 +81,18 @@ const getIcon = (routeName: string) => {
     padding: 0 16px 0 8px;
     color: $text-color;
   }
+    &--hidden {
+    transform: translateX(-100%);
+  }
+}
+
+@media (max-width: 600px) {
+  .nav {
+    display: none;
+  }
+}
+
+.nav--hidden {
+  display: block;
 }
 </style>
