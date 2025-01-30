@@ -19,9 +19,12 @@
 import routes from '@src/routes'
 import { ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
+import { navbarView } from '../../../store/MainStore.js';
 
+const store = navbarView();
 const selectedRoute = ref<string | null>(null)
 const route = useRoute()
+let toggled = false;
 
 function routesList() {
   const app = routes.find((route: routes) => route.name === 'app')
