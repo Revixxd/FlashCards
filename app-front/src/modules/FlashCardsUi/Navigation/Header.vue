@@ -22,11 +22,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, provide  } from 'vue';
+import {provide  } from 'vue';
+import { navbarView } from '../../../store/MainStore.js';
 
+const store = navbarView();
 let toggled = false;
 const toggleNavbar = () => {
-  toggled = !toggled;
+  store.toggleEvent();
 };
 provide('toggled', toggled);
 
@@ -100,7 +102,7 @@ provide('toggled', toggled);
   color: $color-light;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .search__input {
     display: none;
   }
