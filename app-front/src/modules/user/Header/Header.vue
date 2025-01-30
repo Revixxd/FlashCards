@@ -27,14 +27,17 @@
 </template>
 
 <script setup lang="ts">
-import { provide } from 'vue'
+import {provide  } from 'vue';
 import logOut from '../../../utils/logOut/logOut'
+import { navbarView } from '../../../store/MainStore.js';
 
-let toggled = false
-function toggleNavbar() {
-  toggled = !toggled
-}
-provide('toggled', toggled)
+const store = navbarView();
+let toggled = false;
+const toggleNavbar = () => {
+  store.toggleEvent();
+};
+provide('toggled', toggled);
+
 </script>
 
 <style scoped lang="scss">
@@ -105,7 +108,7 @@ provide('toggled', toggled)
   color: $color-light;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .search__input {
     display: none;
   }
