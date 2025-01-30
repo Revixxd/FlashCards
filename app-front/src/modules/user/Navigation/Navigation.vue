@@ -19,10 +19,6 @@
 import routes from '@src/routes'
 import { ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-import { navbarView } from '../../../store/MainStore.js';
-
-const store = navbarView();
-let toggled = false;
 
 const selectedRoute = ref<string | null>(null)
 const route = useRoute()
