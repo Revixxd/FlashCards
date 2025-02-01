@@ -27,7 +27,7 @@ app.use('/register', registerRoute);
 app.use('/login', loginRoute);
 app.use('/logout', logoutRoute);
 app.use('/flashcards', flashcardsRoute);
-app.use('/refresh-token', refreshTokenRoute);
+app.use('/refreshToken', refreshTokenRoute);
 
 app.use(express.static(path.join(__dirname, '/public')));
 
