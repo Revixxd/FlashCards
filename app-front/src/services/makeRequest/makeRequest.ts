@@ -40,11 +40,14 @@ async function makeRequest<T extends GETRequestEnum | POSTRequestEnum | DELETERe
 ): Promise<RequestResponse<T>> {
   const requestOptions = requestFactory(method, type, props)
   const response = await fetch(requestOptions.url, requestOptions)
+
   if (!response.ok) {
-    throw new Error(`error status: ${response.status}`)
+    return response.text().then((text) => {
+      throw new Error(text)
+    })
   }
 
-  return await response.json()
+  return response.json()
 }
 
 export { makeRequest }

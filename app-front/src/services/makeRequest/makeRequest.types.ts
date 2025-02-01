@@ -31,8 +31,15 @@ export interface Flashcard {
 }
 
 // auth
-export interface LoginProps { usernameOrEmail: string, password: string }
-export interface RegisterProps { username: string, email: string, password: string }
+export interface LoginProps {
+  usernameOrEmail: string
+  password: string
+}
+export interface RegisterProps {
+  username: string
+  email: string
+  password: string
+}
 
 // flashcards request props
 export type GetUserFlashcardsProps = null

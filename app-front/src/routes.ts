@@ -1,6 +1,7 @@
 import HomeView from './views/main/HomeView/HomeView.vue'
 import LoginView from './views/main/LoginView/LoginView.vue'
 import NotFoundView from './views/main/NotFoundView/NotFoundView.vue'
+import RegisterView from './views/main/RegisterView/RegisterView.vue'
 import DashBoardView from './views/user/DashboardView/DashBoardView.vue'
 
 const routes = [
@@ -21,6 +22,11 @@ const routes = [
     path: '/login',
     component: LoginView,
     name: 'login',
+  },
+  {
+    path: '/register',
+    component: RegisterView,
+    name: 'register',
   },
   {
     path: '/404',
