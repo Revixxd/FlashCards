@@ -15,7 +15,7 @@ function useLogin() {
 
     try {
       await makeRequest('POST', POSTRequestEnum.LOGIN, data)
-      router.push({ name: 'home' })
+      router.push({ name: 'dashboard' })
     }
     catch (err: any) {
       requestError.value = err
