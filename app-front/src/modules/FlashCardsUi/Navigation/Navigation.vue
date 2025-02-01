@@ -1,14 +1,14 @@
 <template>
   <nav class="nav">
     <RouterLink
-      v-for="(route, key) in routes"
+      v-for="(routePath, key) in routes"
       :key="key"
       :to="route.path"
       class="nav__link"
       active-class="active"
     >
-      <li :class="['nav__list', { 'nav__list--active': isActive(route.name) }]">
-        <font-awesome-icon :icon="getIcon(route.name)" class="nav__icon" />
+      <li class="nav__list" :class="[{ 'nav__list--active': isActive(routePath.name) }]">
+        <font-awesome-icon :icon="getIcon(routePath.name)" class="nav__icon" />
         {{ route.name }}
       </li>
     </RouterLink>
@@ -16,15 +16,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch  } from 'vue'
-import { routes } from '@src/routes'
+import routes from '@src/routes'
+import { ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-
 
 const selectedRoute = ref<string | null>(null)
 const route = useRoute()
 
-const isActive = (routeName: string) => {
+function isActive(routeName: string) {
   return selectedRoute.value === routeName
 }
 
@@ -34,7 +33,7 @@ watch(route, (newRoute) => {
 
 selectedRoute.value = route.name
 
-const getIcon = (routeName: string) => {
+function getIcon(routeName: string) {
   switch (routeName) {
     case 'Home':
       return ['fas', 'home']
@@ -55,7 +54,7 @@ const getIcon = (routeName: string) => {
   width: 225px;
   padding: 8px 24px 0 0;
   position: fixed;
-  top: 80px; 
+  top: 80px;
   bottom: 0;
   left: 0;
   z-index: 1000;
@@ -68,7 +67,7 @@ const getIcon = (routeName: string) => {
     align-items: center;
     padding: 0 16px 0 8px;
   }
-  
+
   &__icon {
     width: 20px;
     height: 20px;
