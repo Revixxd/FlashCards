@@ -42,6 +42,7 @@ export const authorizeUser = async (req: Request, res: Response): Promise<string
             return userId.payload.userId;
 
         } else {
+            res.status(401).json({ message: "Refresh token or accessToken required" });
             return new Error("Refresh token or accessToken required");
         }
 
