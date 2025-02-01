@@ -63,3 +63,6 @@ Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZX
 
 ### Logout User, delete refresh token
 GET http://localhost:3000/logout
+
+### Refresh Token
+GET http://localhost:3000/refreshToken
