@@ -1,8 +1,8 @@
-import type { LoginProps } from '../../services/makeRequst/makeRequest.types'
+import type { LoginProps } from '../../services/makeRequest/makeRequest.types'
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { makeRequest } from '../../services/makeRequst/makeRequest'
-import { POSTRequestEnum } from '../../services/makeRequst/makeRequest.types'
+import { makeRequest } from '../../services/makeRequest/makeRequest'
+import { POSTRequestEnum } from '../../services/makeRequest/makeRequest.types'
 
 function useLogin() {
   const router = useRouter()

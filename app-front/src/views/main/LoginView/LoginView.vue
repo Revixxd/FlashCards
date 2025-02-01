@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import type { LoginProps } from '../../../services/makeRequst/makeRequest.types'
+import type { LoginProps } from '../../../services/makeRequest/makeRequest.types'
 import { ref } from 'vue'
 import useLogin from '../../../utils/useLogin/useLogin'
 

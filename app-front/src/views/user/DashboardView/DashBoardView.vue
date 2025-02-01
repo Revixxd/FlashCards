@@ -15,7 +15,7 @@
         </ul>
     </div>
     <div class="">
-      <h2>Sets recomended for you</h2>
+      <h2>Sets recommended for you</h2>
         <ul class="list">
           <li v-for="(flashcard, index) in flashcards" :key="index" class="content">
             <h3 class="content__title">{{ flashcard.title }}</h3>
@@ -29,7 +29,7 @@
         </ul>
     </div>
     <div class="">
-      <h2>Popural flashcards</h2>
+      <h2>Popular flashcards</h2>
         <ul class="list">
           <li v-for="(flashcard, index) in flashcards" :key="index" class="content">
             <h3 class="content__title">{{ flashcard.title }}</h3>
