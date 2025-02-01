@@ -8,8 +8,14 @@ const router = createRouter({
 })
 
 router.beforeEach(async (to) => {
-  if (!isUserAuthenticated && to.name !== 'Login') {
-    return { name: 'Login' }
+  const userAuthenticated = await isUserAuthenticated()
+
+  if (!userAuthenticated && to.name !== 'login' && to.meta.requiresAuth) {
+    return { name: 'login' }
+  }
+
+  if (userAuthenticated && to.name === 'login') {
+    return { name: 'dashboard' }
   }
 })
 

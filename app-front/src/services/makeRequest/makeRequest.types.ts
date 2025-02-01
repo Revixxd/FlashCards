@@ -9,6 +9,7 @@ export interface RequestOptions {
 
 export enum GETRequestEnum {
   GETUSERFLASHCARDS = 'flashcards/getUserFlashcards',
+  ISUSERAUTHENTICATED = 'me',
 }
 
 export enum POSTRequestEnum {
@@ -39,7 +40,7 @@ export interface CreateFlashcardSetProps {
   description: string
 }
 export interface UpdateFlashcardSetProps {
-  lashcardSetId: string
+  flashcardSetId: string
   flashcards: Flashcard[]
 }
 export interface DeleteFlashcardSetProps {
@@ -48,6 +49,7 @@ export interface DeleteFlashcardSetProps {
 
 export interface GETRequestProps {
   [GETRequestEnum.GETUSERFLASHCARDS]: GetUserFlashcardsProps
+  [GETRequestEnum.ISUSERAUTHENTICATED]: null
 }
 
 export interface POSTRequestProps {

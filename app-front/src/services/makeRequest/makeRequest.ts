@@ -26,9 +26,8 @@ function requestFactory<T extends GETRequestEnum | POSTRequestEnum | DELETEReque
     method,
     headers: {
       'Content-Type': 'application/json',
-      'Access-Control-Allow-Headers': 'Content-Type',
-      'Access-Control-Allow-Origin': '*',
     },
+    credentials: 'include' as RequestCredentials,
     body,
     url,
   }
