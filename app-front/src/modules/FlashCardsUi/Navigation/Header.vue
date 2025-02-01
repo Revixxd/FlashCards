@@ -18,6 +18,9 @@
       <button class="profil__upgrade profil">
         upgrade
       </button>
+      <button class="log-out" @click="logOut">
+        log-out
+      </button>
       <font-awesome-icon :icon="['fas', 'user']" class="profil__img profil" />
     </div>
   </header>
@@ -25,6 +28,7 @@
 
 <script setup lang="ts">
 import { provide } from 'vue'
+import logOut from '../../../utils/logOut/logOut'
 
 let toggled = false
 function toggleNavbar() {
