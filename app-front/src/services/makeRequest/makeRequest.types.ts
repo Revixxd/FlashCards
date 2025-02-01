@@ -10,6 +10,7 @@ export interface RequestOptions {
 export enum GETRequestEnum {
   GETUSERFLASHCARDS = 'flashcards/getUserFlashcards',
   ISUSERAUTHENTICATED = 'refreshToken',
+  LOGOUT = 'logout',
 }
 
 export enum POSTRequestEnum {
@@ -50,6 +51,7 @@ export interface DeleteFlashcardSetProps {
 export interface GETRequestProps {
   [GETRequestEnum.GETUSERFLASHCARDS]: GetUserFlashcardsProps
   [GETRequestEnum.ISUSERAUTHENTICATED]: null
+  [GETRequestEnum.LOGOUT]: null
 }
 
 export interface POSTRequestProps {
