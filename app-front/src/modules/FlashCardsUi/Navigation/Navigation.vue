@@ -17,7 +17,7 @@
 
 <script setup lang="ts">
 import { ref, watch  } from 'vue'
-import { routes } from '@src/routes'
+import routes from '@src/routes'
 import { RouterLink, useRoute } from 'vue-router'
 
 

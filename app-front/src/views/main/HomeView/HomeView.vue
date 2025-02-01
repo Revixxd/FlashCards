@@ -1,14 +1,10 @@
 <template>
   <div>
-    <Header />
-    <Navigation />
-    
+    Home View
   </div>
 </template>
 
 <script setup lang="ts">
-import Navigation from '@FlashCardsUi/Navigation/Navigation.vue'
-import Header from '@FlashCardsUi/Navigation/Header.vue';
 </script>
 
 <style scoped>

@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Navigation />
     <input v-model="formData.usernameOrEmail" type="text" placeholder="Username/email">
     <input v-model="formData.password" type="password" placeholder="Password">
     <button @click="formSubmit">
@@ -14,7 +13,6 @@
 
 <script setup lang="ts">
 import type { LoginProps } from '../../../services/makeRequst/makeRequest.types'
-import Navigation from '@FlashCardsUi/Navigation/Navigation.vue'
 import { ref } from 'vue'
 import useLogin from '../../../utils/useLogin/useLogin'
 
