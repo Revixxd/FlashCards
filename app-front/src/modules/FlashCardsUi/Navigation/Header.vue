@@ -1,8 +1,8 @@
 <template>
   <header class="header">
     <div class="header__element">
-      <font-awesome-icon :icon="['fas', 'bars']" class="icon__hamburger" v-on:click="toggleNavbar"/>
-      <font-awesome-icon :icon="['fas', 'layer-group']"  class="icon__logo"/>
+      <font-awesome-icon :icon="['fas', 'bars']" class="icon__hamburger" @click="toggleNavbar" />
+      <font-awesome-icon :icon="['fas', 'layer-group']" class="icon__logo" />
     </div>
     <div class="header__element">
       <input
@@ -11,25 +11,26 @@
         class="search__input"
         placeholder="Search..."
         @input="onSearch"
-      />
+      >
     </div>
     <div class="header__element">
       <font-awesome-icon :icon="['fas', 'square-plus']" class="icon__plus" />
-      <button class="profil__upgrade profil">upgrade</button>
+      <button class="profil__upgrade profil">
+        upgrade
+      </button>
       <font-awesome-icon :icon="['fas', 'user']" class="profil__img profil" />
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
-import { ref, provide  } from 'vue';
+import { provide } from 'vue'
 
-let toggled = false;
-const toggleNavbar = () => {
-  toggled = !toggled;
-};
-provide('toggled', toggled);
-
+let toggled = false
+function toggleNavbar() {
+  toggled = !toggled
+}
+provide('toggled', toggled)
 </script>
 
 <style scoped lang="scss">
@@ -105,27 +106,5 @@ provide('toggled', toggled);
     display: none;
   }
 
-}
-
-.icon__hamburger {
-  width: 20px;
-  height: 20px;
-  margin: 0 16px 0 0;
-  cursor: pointer;
-}
-
-.icon__plus {
-  width: 30px;
-  height: 30px;
-  margin: 0 16px 0 0;
-  cursor: pointer;
-  color: $color-light;
-}
-.icon__logo {
-  width: 30px;
-  height: 30px;
-  margin: 0 0 0 10px;
-  cursor: pointer;
-  color: $color-light;
 }
 </style>

@@ -11,7 +11,6 @@ export default antfu({
   },
   stylistic: {
     overrides: {
-      'indent': ['error', 2],
       'object-property-newline': ['error', {
         allowAllPropertiesOnSameLine: false,
       }],
