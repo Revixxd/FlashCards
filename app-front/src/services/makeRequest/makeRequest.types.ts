@@ -9,7 +9,7 @@ export interface RequestOptions {
 
 export enum GETRequestEnum {
   GETUSERFLASHCARDS = 'flashcards/getUserFlashcards',
-  ISUSERAUTHENTICATED = 'me',
+  ISUSERAUTHENTICATED = 'refreshToken',
 }
 
 export enum POSTRequestEnum {
