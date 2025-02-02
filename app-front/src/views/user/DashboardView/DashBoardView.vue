@@ -2,7 +2,7 @@
   <div class="dashboard">
     <Header />
     <Navigation />
-    <div class="test">
+    <div>
       <h2>Last sets</h2>
       <ul class="list">
         <li v-for="(flashcard, index) in flashcards" :key="index" class="box">
