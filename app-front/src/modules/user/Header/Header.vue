@@ -47,11 +47,11 @@ provide('toggled', toggled)
   display: flex;
   justify-content: space-between;
   background-color: $background-color;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 1000;
+  // position: fixed;
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  // z-index: 1000;
   .header__element {
     display: flex;
     align-items: center;

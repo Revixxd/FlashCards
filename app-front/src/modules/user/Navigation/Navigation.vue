@@ -7,7 +7,7 @@
       class="nav__link"
       active-class="active"
     >
-      <li class="nav__list" @click="" :class="[{ 'nav__list--active': isActive(route.name) }]">
+      <li class="nav__list" :class="[{ 'nav__list--active': isActive(route.name) }]" @click="">
         <font-awesome-icon :icon="getIcon(route.name)" class="nav__icon" />
         {{ route.name }}
       </li>
@@ -18,21 +18,19 @@
 <script setup lang="ts">
 import routes from '@src/routes'
 import { ref, watch } from 'vue'
-import { RouterLink, useRoute, } from 'vue-router'
+import { RouterLink, useRoute } from 'vue-router'
 
 const selectedRoute = ref<string | null>(null)
 const route = useRoute()
 
-const routesList = () => {
-  const app = routes.find((route:routes) => route.name === "app" )
+function routesList() {
+  const app = routes.find((route: routes) => route.name === 'app')
   const appChildren = app?.children
 
   return [
-    ...appChildren
+    ...appChildren,
   ]
 }
-
-console.log(routesList())
 
 function isActive(routeName: string) {
   return selectedRoute.value === routeName

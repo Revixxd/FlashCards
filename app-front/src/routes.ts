@@ -2,10 +2,10 @@ import HomeView from './views/main/HomeView/HomeView.vue'
 import LoginView from './views/main/LoginView/LoginView.vue'
 import NotFoundView from './views/main/NotFoundView/NotFoundView.vue'
 import RegisterView from './views/main/RegisterView/RegisterView.vue'
+import AppView from './views/user/AppView/AppView.vue'
+import CreateSetView from './views/user/CreateSetView/CreateSetView.vue'
 import DashBoardView from './views/user/DashboardView/DashBoardView.vue'
 import LibraryView from './views/user/LibraryView/LibraryView.vue'
-import CreateSetView from './views/user/CreateSetView/CreateSetView.vue'
-import AppView from './views/user/AppView/AppView.vue'
 
 const routes = [
   {

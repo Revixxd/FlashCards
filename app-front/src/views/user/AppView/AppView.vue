@@ -1,17 +1,15 @@
 <template>
   <div class="appWrapper">
     <Header />
-    <Navigation />
-    <RouterView class="content"/>
+    <!-- <Navigation /> -->
+    <RouterView class="content" />
   </div>
 </template>
 
 <script setup lang="ts">
-import Header from '../../../modules/user/Header/Header.vue'
-import Navigation from '../../../modules/user/Navigation/Navigation.vue'
 import { RouterView } from 'vue-router'
+import Header from '../../../modules/user/Header/Header.vue'
 </script>
-
 
 <style scoped lang="scss">
 @import "@src/styles/variables.scss";
@@ -19,6 +17,8 @@ import { RouterView } from 'vue-router'
 .appWrapper {
   background-color: $background-color;
   color: $text-color;
+  display: flex;
+  flex-direction: column;
 }
 .content {
   background-color: $primary-color;
