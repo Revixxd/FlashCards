@@ -1,7 +1,5 @@
 <template>
   <div class="dashboard">
-    <Header />
-    <Navigation />
     <div class="test">
       <h2>Last sets</h2>
       <ul class="list">
@@ -56,12 +54,11 @@
         </li>
       </ul>
     </div>
+    <router-view />
   </div>
 </template>
 
 <script setup lang="ts">
-import Header from '@FlashCardsUi/Navigation/Header.vue'
-import Navigation from '@FlashCardsUi/Navigation/Navigation.vue'
 import { reactive } from 'vue'
 
 const flashcards = reactive([

@@ -1,14 +1,14 @@
 <template>
   <nav class="nav">
     <RouterLink
-      v-for="(routePath, key) in routes"
+      v-for="(route, key) in routesList()"
       :key="key"
-      :to="route.path"
+      :to="{ name: route.name }"
       class="nav__link"
       active-class="active"
     >
-      <li class="nav__list" :class="[{ 'nav__list--active': isActive(routePath.name) }]">
-        <font-awesome-icon :icon="getIcon(routePath.name)" class="nav__icon" />
+      <li class="nav__list" @click="" :class="[{ 'nav__list--active': isActive(route.name) }]">
+        <font-awesome-icon :icon="getIcon(route.name)" class="nav__icon" />
         {{ route.name }}
       </li>
     </RouterLink>
@@ -18,10 +18,21 @@
 <script setup lang="ts">
 import routes from '@src/routes'
 import { ref, watch } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
+import { RouterLink, useRoute, } from 'vue-router'
 
 const selectedRoute = ref<string | null>(null)
 const route = useRoute()
+
+const routesList = () => {
+  const app = routes.find((route:routes) => route.name === "app" )
+  const appChildren = app?.children
+
+  return [
+    ...appChildren
+  ]
+}
+
+console.log(routesList())
 
 function isActive(routeName: string) {
   return selectedRoute.value === routeName
