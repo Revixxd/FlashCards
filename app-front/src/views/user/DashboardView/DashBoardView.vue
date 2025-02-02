@@ -193,10 +193,10 @@ const flashcards = reactive([
   }
 }
 
-@media (max-width: 600px) {
+@media (max-width: 700px) {
   .dashboard {
     margin: 80px auto 0;
-    padding: 0 10px;
+    padding: 0 30px;
   }
   .list {
     padding-inline: auto;
