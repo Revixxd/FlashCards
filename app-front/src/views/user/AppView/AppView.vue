@@ -1,8 +1,10 @@
 <template>
   <div class="appWrapper">
     <Header />
-    <!-- <Navigation /> -->
-    <RouterView class="content" />
+    <Navigation />
+    <div id="user-app">
+      <RouterView class="content" />
+    </div>
   </div>
 </template>
 

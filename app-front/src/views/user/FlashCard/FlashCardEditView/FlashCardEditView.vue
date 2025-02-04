@@ -1,6 +1,6 @@
 <template>
   <div>
-    create set
+    {{ $route.params.id }}
   </div>
 </template>
 

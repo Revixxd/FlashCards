@@ -3,8 +3,9 @@ import LoginView from './views/main/LoginView/LoginView.vue'
 import NotFoundView from './views/main/NotFoundView/NotFoundView.vue'
 import RegisterView from './views/main/RegisterView/RegisterView.vue'
 import AppView from './views/user/AppView/AppView.vue'
-import CreateSetView from './views/user/CreateSetView/CreateSetView.vue'
 import DashBoardView from './views/user/DashboardView/DashBoardView.vue'
+import FlashCardEditView from './views/user/FlashCard/FlashCardEditView/FlashCardEditView.vue'
+import FlashCardEditPlay from './views/user/FlashCard/FlashCardPlayView/FlashCardPlayView.vue'
 import LibraryView from './views/user/LibraryView/LibraryView.vue'
 
 const routes = [
@@ -32,9 +33,20 @@ const routes = [
         name: 'library',
       },
       {
-        path: 'create-set',
-        component: CreateSetView,
-        name: 'createSet',
+        path: 'flashcard',
+        name: 'flashcard',
+        children: [
+          {
+            path: 'edit/:id',
+            component: FlashCardEditView,
+            name: 'flashcard-edit',
+          },
+          {
+            path: 'play/:id',
+            component: FlashCardEditPlay,
+            name: 'flashcard-play',
+          },
+        ],
       },
     ],
   },

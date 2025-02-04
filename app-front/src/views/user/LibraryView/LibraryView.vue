@@ -1,10 +1,16 @@
 <template>
-  <div>
-    <div v-for="flashcardsSet in flashcardsSetList" :key="flashcardsSet._id">
+  <div class="flashcard-set">
+    <div v-for="flashcardsSet in flashcardsSetList" :key="flashcardsSet._id" class="flashcard-set__element">
       nazwa setu: {{ flashcardsSet.flashcardName }}
       <div v-for="flashcard in flashcardsSet.flashcards" :key="flashcard._id">
         fiszka: {{ flashcard.frontName }}
       </div>
+      <RouterLink :to="{ name: 'flashcard-edit', params: { id: flashcardsSet._id } }">
+        <button>edytuj</button>
+      </RouterLink>
+      <RouterLink :to="{ name: 'flashcard-play', params: { id: flashcardsSet._id } }">
+        <button>rozpocznij nauke</button>
+      </RouterLink>
     </div>
   </div>
 </template>
@@ -27,5 +33,17 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+.flashcard-set {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 10px;
 
+  .flashcard-set__element {
+    background-color: red;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
 </style>
