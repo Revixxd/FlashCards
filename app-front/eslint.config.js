@@ -1,5 +1,6 @@
 import antfu from '@antfu/eslint-config'
 
+// https://eslint-config.antfu.me/rules
 export default antfu({
   vue: {
     overrides: {
@@ -10,7 +11,14 @@ export default antfu({
   },
   stylistic: {
     overrides: {
-      indent: ['error', 2],
+      'object-property-newline': ['error', {
+        allowAllPropertiesOnSameLine: false,
+      }],
+      'object-curly-spacing': ['error', 'always'],
+      'object-curly-newline': ['error', {
+        multiline: true,
+        consistent: true,
+      }],
     },
   },
 })
