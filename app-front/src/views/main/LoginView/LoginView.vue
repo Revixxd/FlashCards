@@ -1,30 +1,64 @@
 <template>
-  <div>
-    <input v-model="formData.usernameOrEmail" type="text" placeholder="Username/email">
-    <input v-model="formData.password" type="password" placeholder="Password">
-    <button @click="formSubmit">
-      Login
-    </button>
-    <p v-if="requestError">
-      {{ requestError.message }}
-    </p>
+
+  <div class="auth">
+    <form @submit.prevent="formSubmit" class="auth__form">
+      <h1 class="auth__title">{{ isLogin ? 'Login to FlashCards' : 'Register to FlashCards' }}</h1>
+
+      <p class="auth__label">Enter your username</p>
+      <input type="text" v-model="formData.usernameOrEmail" name="username" class="auth__input" required />
+
+      <p v-if="!isLogin" class="auth__label">Enter your email</p>
+      <input v-if="!isLogin" type="email" v-model="formData.usernameOrEmail" name="username" class="auth__input" required />
+
+      <p class="auth__label">Enter your password</p>
+      <input type="password" v-model="formData.password" name="password" class="auth__input" required />
+      
+      <p v-if="!isLogin" class="auth__label">Confrim your password</p>
+      <input v-if="!isLogin" type="password"  v-model="confirmedPassword" name="email" class="auth__input" required />
+
+      <button type="submit" class="auth__button">
+        {{ isLogin ? 'Login' : 'Register' }}
+      </button>
+
+      <p v-if="requestError" class="error-text">{{ requestError.message }}</p>
+
+      <p class="toggle__text">
+        {{ isLogin ? "Don't have an account?" : "Already have an account?" }}
+        <button type="button" @click="toggleForm" class="toggle__button">
+          {{ isLogin ? 'Register' : 'Login' }}
+        </button>
+      </p>
+    </form>
   </div>
 </template>
 
 <script setup lang="ts">
-import type { LoginProps } from '../../../services/makeRequest/makeRequest.types'
 import { ref } from 'vue'
 import useLogin from '../../../utils/useLogin/useLogin'
+import type { LoginProps } from '../../../services/makeRequest/makeRequest.types'
 
 const formData = ref<LoginProps>({
   usernameOrEmail: '',
   password: '',
 })
-
 const { login, requestError } = useLogin()
 
+const isLogin = ref(true)
+const confirmedPassword = ref('')
+function toggleForm(){
+  isLogin.value = !isLogin.value
+}
+
 function formSubmit() {
-  login(formData.value)
+  if(isLogin.value) {
+    login(formData.value)
+  } else {
+    if(confirmedPassword === formData.value.password) {
+
+    } else {
+
+    }
+  }
 }
 </script>
 
@@ -101,5 +135,11 @@ function formSubmit() {
 
 .toggle__button:hover {
   text-decoration: underline;
+}
+
+.error-text {
+  color: red;
+  font-size: 14px;
+  margin-top: 10px;
 }
 </style>
