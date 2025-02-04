@@ -10,7 +10,7 @@ export interface RequestOptions {
 }
 
 export enum GETRequestEnum {
-  GETUSERFLASHCARDLIST = 'flashcards/getUserFlashcards',
+  GETUSERFLASHCARDLIST = 'flashcards/getUserFlashcardList',
   ISUSERAUTHENTICATED = 'refreshToken',
   LOGOUT = 'logout',
 }
