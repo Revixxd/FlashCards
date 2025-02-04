@@ -22,12 +22,18 @@
             <input v-model="flashcard.backName" :name="`${flashcard._id} ` + `backName`" type="text">
           </div>
         </form>
+        <button @click="removeTemporaryFlashCard(flashcard._id)">
+          Usuń fiszke
+        </button>
       </div>
     </div>
     <button @click.prevent="resetForm">
       Reset
     </button>
-    <button @click.prevent="saveFlashcardSet">
+    <button @click.prevent="addTempFlashCard()">
+      Dodaj fiszke
+    </button>
+    <button @click.prevent="saveFlashcardSet()">
       Zapisz set fiszek
     </button>
   </div>
@@ -49,7 +55,7 @@ const flashcardId = Array.isArray(route.params.id) ? route.params.id[0] : route.
 async function saveFlashcardSet() {
   if (formFlashCardSet.value) {
     await updateFlashcardSet(flashcardId, formFlashCardSet.value.flashcards)
-      .then((res) => {
+      .then(() => {
         getUserFlashCardsSet(flashcardId)
           .then((res) => {
             flashCardSet.value = res
@@ -59,11 +65,26 @@ async function saveFlashcardSet() {
   }
 }
 
+function addTempFlashCard() {
+  if (formFlashCardSet.value) {
+    formFlashCardSet.value.flashcards.push({
+      _id: 'temp',
+      frontName: '',
+      backName: '',
+    })
+  }
+}
+
 function resetForm() {
   if (flashCardSet.value) {
     formFlashCardSet.value = JSON.parse(JSON.stringify(flashCardSet.value))
   }
-}0
+}
+function removeTemporaryFlashCard(flashcardId: string) {
+  if (formFlashCardSet.value) {
+    formFlashCardSet.value.flashcards = formFlashCardSet.value.flashcards.filter(flashcard => flashcard._id !== flashcardId)
+  }
+}
 
 onMounted(async () => {
   const flashcardSetResponse = await getUserFlashCardsSet(flashcardId)
