@@ -20,6 +20,7 @@ export enum POSTRequestEnum {
   REGISTER = 'register',
   CREATEFLASHCARDSET = 'flashcards/createFlashcardSet',
   UPDATEFLASHCARDSET = 'flashcards/updateFlashcardSet',
+  GETUSERFLASHCARDSET = 'flashcards/getFlashcardSetById',
 }
 
 export enum DELETERequestEnum {
@@ -51,6 +52,10 @@ export interface DeleteFlashcardSetProps {
   flashcardSetId: string
 }
 
+export interface GetUserFlashcardSetProps {
+  flashcardId: string
+}
+
 export interface GETRequestProps {
   [GETRequestEnum.GETUSERFLASHCARDLIST]: GetUserFlashcardListProps
   [GETRequestEnum.ISUSERAUTHENTICATED]: null
@@ -62,6 +67,7 @@ export interface POSTRequestProps {
   [POSTRequestEnum.REGISTER]: RegisterProps
   [POSTRequestEnum.CREATEFLASHCARDSET]: CreateFlashcardSetProps
   [POSTRequestEnum.UPDATEFLASHCARDSET]: UpdateFlashcardSetProps
+  [POSTRequestEnum.GETUSERFLASHCARDSET]: GetUserFlashcardSetProps
 }
 
 export interface DELETERequestProps {
