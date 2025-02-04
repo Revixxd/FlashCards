@@ -6,7 +6,7 @@ import { GETRequestEnum } from '../../services/makeRequest/makeRequest.types'
 function useFlashCards() {
   const requestError = ref<Error | null>(null)
 
-  const getFlashCardsSets = async () => {
+  const getUserFlashCardsList = async () => {
     let flashCardsSets: FlashcardSet[] = []
 
     try {
@@ -25,7 +25,7 @@ function useFlashCards() {
 
   return {
     requestError,
-    getFlashCardsSets,
+    getUserFlashCardsList,
   }
 }
 

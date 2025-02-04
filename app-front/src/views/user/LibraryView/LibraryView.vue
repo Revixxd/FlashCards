@@ -20,12 +20,12 @@ import type { FlashcardSet } from '../../../services/makeRequest/flashCards.type
 import { onMounted, ref } from 'vue'
 import useFlashCards from '../../../utils/useFlashCards/useFlashCards'
 
-const { getFlashCardsSets } = useFlashCards()
+const { getUserFlashCardsList } = useFlashCards()
 
 const flashcardsSetList = ref<FlashcardSet[]>([])
 
 onMounted(async () => {
-  await getFlashCardsSets()
+  await getUserFlashCardsList()
     .then((res) => {
       flashcardsSetList.value = res
     })
