@@ -1,15 +1,15 @@
 <template>
   <nav class="nav">
     <RouterLink
-      v-for="(route, key) in routesList()"
+      v-for="(routeElement, key) in routesList()"
       :key="key"
-      :to="{ name: route.name }"
+      :to="{ name: routeElement.name }"
       class="nav__link"
       active-class="active"
     >
-      <li class="nav__list" :class="[{ 'nav__list--active': isActive(route.name) }]" @click="">
-        <font-awesome-icon :icon="getIcon(route.name)" class="nav__icon" />
-        {{ route.name }}
+      <li class="nav__list" :class="[{ 'nav__list--active': isActive(routeElement.name) }]" @click.prevent="">
+        <font-awesome-icon :icon="getIcon(routeElement.name)" class="nav__icon" />
+        {{ routeElement.name }}
       </li>
     </RouterLink>
   </nav>
