@@ -1,15 +1,15 @@
 <template>
   <nav :class="['nav', { 'nav--hidden': store.toggled}]">
     <RouterLink
-      v-for="(routePath, key) in routes"
+      v-for="(routeElement, key) in routesList()"
       :key="key"
-      :to="route.path"
+      :to="{ name: routeElement.name }"
       class="nav__link"
       active-class="active"
     >
-      <li class="nav__list" :class="[{ 'nav__list--active': isActive(routePath.name) }]">
-        <font-awesome-icon :icon="getIcon(routePath.name)" class="nav__icon" />
-        {{ route.name }}
+      <li class="nav__list" :class="[{ 'nav__list--active': isActive(routeElement.name) }]" @click.prevent="">
+        <font-awesome-icon :icon="getIcon(routeElement.name)" class="nav__icon" />
+        {{ routeElement.name }}
       </li>
     </RouterLink>
   </nav>

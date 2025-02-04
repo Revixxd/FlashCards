@@ -22,5 +22,5 @@
     "skipLibCheck": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/services/makeRequest"]
+  "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.vue", "src/services/makeRequest", "src/services/getFlashCards"]
 }

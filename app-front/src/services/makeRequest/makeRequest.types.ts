@@ -1,3 +1,5 @@
+import type { Flashcard } from './flashCards.types'
+
 export type HttpMethod = 'GET' | 'POST' | 'DELETE'
 
 export interface RequestOptions {
@@ -8,7 +10,7 @@ export interface RequestOptions {
 }
 
 export enum GETRequestEnum {
-  GETUSERFLASHCARDS = 'flashcards/getUserFlashcards',
+  GETUSERFLASHCARDLIST = 'flashcards/getUserFlashcardList',
   ISUSERAUTHENTICATED = 'refreshToken',
   LOGOUT = 'logout',
 }
@@ -24,12 +26,6 @@ export enum DELETERequestEnum {
   DELETEFLASHCARDSET = 'flashcards/deleteFlashcardSet',
 }
 
-// flashcards
-export interface Flashcard {
-  frontName: string
-  backName: string
-}
-
 // auth
 export interface LoginProps {
   usernameOrEmail: string
@@ -42,7 +38,7 @@ export interface RegisterProps {
 }
 
 // flashcards request props
-export type GetUserFlashcardsProps = null
+export type GetUserFlashcardListProps = null
 export interface CreateFlashcardSetProps {
   title: string
   description: string
@@ -56,7 +52,7 @@ export interface DeleteFlashcardSetProps {
 }
 
 export interface GETRequestProps {
-  [GETRequestEnum.GETUSERFLASHCARDS]: GetUserFlashcardsProps
+  [GETRequestEnum.GETUSERFLASHCARDLIST]: GetUserFlashcardListProps
   [GETRequestEnum.ISUSERAUTHENTICATED]: null
   [GETRequestEnum.LOGOUT]: null
 }
