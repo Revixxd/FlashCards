@@ -1,4 +1,4 @@
-import type { FlashcardSet } from '../../services/makeRequest/flashCards.types'
+import type { Flashcard, FlashcardSet } from '../../services/makeRequest/flashCards.types'
 import { ref } from 'vue'
 import { makeRequest } from '../../services/makeRequest/makeRequest'
 import { GETRequestEnum, POSTRequestEnum } from '../../services/makeRequest/makeRequest.types'
@@ -45,8 +45,22 @@ function useFlashCards() {
     return flashCardsSet
   }
 
+  const updateFlashcardSet = async (flashcardSetId: string, flashcards: Flashcard[]) => {
+    try {
+      await makeRequest('POST', POSTRequestEnum.UPDATEFLASHCARDSET, {
+        flashcardId: flashcardSetId,
+        flashcards,
+      })
+    }
+    catch (err: any) {
+      const serverErrorMessage = JSON.parse(err.message)
+      requestError.value = serverErrorMessage
+    }
+  }
+
   return {
     requestError,
+    updateFlashcardSet,
     getUserFlashCardsSet,
     getUserFlashCardsList,
   }

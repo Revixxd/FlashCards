@@ -45,7 +45,7 @@ export interface CreateFlashcardSetProps {
   description: string
 }
 export interface UpdateFlashcardSetProps {
-  flashcardSetId: string
+  flashcardId: string
   flashcards: Flashcard[]
 }
 export interface DeleteFlashcardSetProps {
