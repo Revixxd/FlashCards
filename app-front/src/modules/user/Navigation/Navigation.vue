@@ -26,15 +26,6 @@ const selectedRoute = ref<string | null>(null)
 const route = useRoute()
 let toggled = false;
 
-function routesList() {
-  const app = routes.find((route: routes) => route.name === 'app')
-  const appChildren = app?.children
-
-  return [
-    ...appChildren,
-  ]
-}
-
 function isActive(routeName: string) {
   return selectedRoute.value === routeName
 }
