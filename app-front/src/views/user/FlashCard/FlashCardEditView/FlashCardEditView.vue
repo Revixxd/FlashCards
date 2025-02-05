@@ -1,11 +1,6 @@
 <template>
   <div>
     <p>{{ requestError }} </p>
-    <pre>
-      <code>
-        {{ flashCardSet }}
-      </code>
-    </pre>
     <div>
       <p>Nazwa setu fiszek: {{ flashCardSet?.flashcardName }}</p>
     </div>
@@ -45,6 +40,7 @@ import { onMounted, ref, watch } from 'vue'
 import { useRoute } from 'vue-router'
 import useFlashCards from '../../../../utils/useFlashCards/useFlashCards'
 
+// IDEA: refactor useFlashCards to make it more reusable (useFlashCardsSet)
 const { getUserFlashCardsSet, updateFlashcardSet, requestError } = useFlashCards()
 const flashCardSet = ref<FlashcardSet>()
 const formFlashCardSet = ref<FlashcardSet>()
