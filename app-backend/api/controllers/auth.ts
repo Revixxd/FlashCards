@@ -19,7 +19,7 @@ export const checkPassword = async (password: string, hashedPassword: string): P
     return match;
 };
 
-export const authorizeUser = async (req: Request, res: Response): Promise<string | Error> => {
+export const authorizeUser = async (req: Request, res: Response): Promise<string | Error | undefined> => {
     const connectionState = mongoose.connection.readyState;
     if (connectionState === 0) {
         await connectDb();
@@ -43,7 +43,7 @@ export const authorizeUser = async (req: Request, res: Response): Promise<string
 
         } else {
             res.status(401).json({ message: "Refresh token or accessToken required" });
-            return new Error("Refresh token or accessToken required");
+            return; //in case of no token on first request
         }
 
 
