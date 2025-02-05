@@ -15,8 +15,5 @@ const passwordValidation = (password: string): boolean => {
     const regex = /^(?=.*[A-Z])(?=.*\d).{8,}$/;
     return regex.test(password);
 };
-const arePasswordsSame = (password: string, repeatPassword: string): boolean => {
-    return password === repeatPassword;
-}
 
-export { isEmailValid, isUsernameValid, passwordValidation, arePasswordsSame };
+export { isEmailValid, isUsernameValid, passwordValidation};
