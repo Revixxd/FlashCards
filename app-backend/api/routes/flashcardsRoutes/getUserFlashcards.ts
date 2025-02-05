@@ -15,11 +15,11 @@ const getUserFlashcards = async (req: Request, res: Response): Promise<void> => 
             res.status(404).json({ message: "No flashcards found" });
             return;
         }
-
-        res.status(200).json(flashcards);
+        else {
+            res.status(200).json(flashcards);
+        }
     } catch (error) {
-        console.error("Error retrieving flashcards:", error);
-        res.status(500).json({ message: "Error retrieving flashcards", error });
+        console.error("Error retrieving flashcards:");
     }
 };
 

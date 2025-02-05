@@ -58,6 +58,23 @@ Authorization: token your-token-here
     "flashcardId": "flashcardId"
 }
 
+
+### Get Flashcard
+POST http://localhost:3000/flashcards/getFlashcardSetById
+Content-Type: application/json
+Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXJJZCI6IjY3NWQ4Yzg1ZTM2MGJlYzkwNDM1MzA0MCJ9LCJpYXQiOjE3Mzg1MDk2OTksImV4cCI6MTczODUwOTcwOX0.-MJNWJ77rf1F9BuVQKZWtxHROsUGJff6G90w9AyquWY
+
+{
+    "flashcardId": "679f8394e2fa6d43cb653814"
+
+}
+
 ### Get User Flashcards
 GET http://localhost:3000/flashcards/getUserFlashcards
 Authorization: token eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwYXlsb2FkIjp7InVzZXIiOiI2NzVkOGM4NWUzNjBiZWM5MDQzNTMwNDAifSwiaWF0IjoxNzM2NTM2ODgxLCJleHAiOjE3MzY1MzY4OTF9.2eTx5_uG9ogMzqjFSDAcBuMg6J5nJ8CBwdBYcx6ogsE
+
+### Logout User, delete refresh token
+GET http://localhost:3000/logout
+
+### Refresh Token
+GET http://localhost:3000/refreshToken
