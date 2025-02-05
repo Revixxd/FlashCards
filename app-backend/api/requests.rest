@@ -6,9 +6,10 @@ POST http://localhost:3000/register
 Content-Type: application/json
 
 {
-    "username": "login",
-    "password": "password",
-    "email": "test@test2.pl"
+    "username": "test",
+    "password": "Password123",
+    "repeatPassword": "Password123",
+    "email": "test@test.pl"
 }
 
 ### Login
