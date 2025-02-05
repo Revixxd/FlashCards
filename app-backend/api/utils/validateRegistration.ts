@@ -1,5 +1,5 @@
 import express from 'express';
-import { isEmailValid, isUsernameValid, passwordValidation, arePasswordsSame } from '../controllers/fieldsValidation.js';
+import { isEmailValid, isUsernameValid, passwordValidation} from '../controllers/fieldsValidation.js';
 
 const validateRegitraion = (user: any, res: express.Response): boolean => {
     if (!isUsernameValid(user.username)) {
@@ -19,12 +19,6 @@ const validateRegitraion = (user: any, res: express.Response): boolean => {
             message: 'Password is not valid'
         });
         return false;
-    }
-    if (!arePasswordsSame(user.password, user.repeatPassword)) {
-        res.status(400).json({
-            message: 'Passwords do not match'
-        });
-        return false
     }
     return true;
 }

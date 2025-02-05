@@ -9,10 +9,9 @@ import validateRegitraion from '../utils/validateRegistration.js';
 const router = express.Router();
 
 router.post('/', async (req: express.Request, res: express.Response): Promise<void> => {
-    const recievedUser: { username: string, password: string, repeatPassword: string, email: string } = {
+    const recievedUser: { username: string, password: string, email: string } = {
         username: sanitizeInput(req.body.username),
         password: sanitizeInput(req.body.password),
-        repeatPassword: sanitizeInput(req.body.repeatPassword),
         email: sanitizeInput(req.body.email)
     }
     await connectDb();
