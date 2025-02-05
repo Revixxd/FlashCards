@@ -1,5 +1,4 @@
 <template>
-
   <div class="auth">
     <form @submit.prevent="formSubmit" class="auth__form">
       <h1 class="auth__title">Login to FlashCards</h1>
@@ -8,39 +7,47 @@
       <input type="text" v-model="formData.usernameOrEmail" name="username" class="auth__input" required />
 
       <p class="auth__label">Enter your password</p>
-      <input type="password" v-model="formData.password" name="password" class="auth__input" required />
+      <div class="password--wrapper">
+        <input :type="showPassword ? 'text' : 'password'" v-model="formData.password" name="password" class="auth__input" required />
+        <span @click="togglePasswordVisibility()" class="password--toggle">
+          <font-awesome-icon :icon="showPassword ? 'eye' : 'eye-slash'" />
+         </span>
+      </div>
 
-      <button type="submit" class="auth__button">
-        Login
-      </button>
+      <button type="submit" class="auth__button">Login</button>
 
       <p v-if="requestError" class="error-text">{{ requestError.message }}</p>
 
       <p class="toggle__text">
         Don't have an account?
-        <button type="button" @click="goToRegister" class="toggle__button">
-          Register
-        </button>
+        <button type="button" @click="goToRegister" class="toggle__button">Register</button>
       </p>
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import useLogin from '../../../utils/useLogin/useLogin'
-import type { LoginProps } from '../../../services/makeRequest/makeRequest.types'
+import { ref } from 'vue';
+import useLogin from '../../../utils/useLogin/useLogin';
+import type { LoginProps } from '../../../services/makeRequest/makeRequest.types';
 import { useRouter } from 'vue-router';
 
 const formData = ref<LoginProps>({
   usernameOrEmail: '',
   password: '',
-})
-const { login, requestError } = useLogin()
+});
+const { login, requestError } = useLogin();
 const router = useRouter();
+const showPassword = ref(false);
+
+const togglePasswordVisibility = () => {
+  showPassword.value = !showPassword.value;
+};
+
 function formSubmit() {
-    login(formData.value)
+  login(formData.value);
 }
+
 const goToRegister = () => {
   router.push('/register');
 };
@@ -61,7 +68,6 @@ const goToRegister = () => {
     padding: 20px;
     background: $secondary-background-color;
     border-radius: 10px;
-    text-align: center;
     box-shadow: 0 0 10px rgba($text-color, 0.1);
   }
 
@@ -74,12 +80,11 @@ const goToRegister = () => {
   &__label {
     color: $secondary-color;
     margin: 5px 0;
-    text-align: left;
     font-weight: bold;
   }
 
   &__input {
-    width: 90%;
+    width: 85%;
     padding: 10px;
     margin-bottom: 10px;
     border: 1px solid $secondary-color;
@@ -140,5 +145,9 @@ const goToRegister = () => {
   font-size: 14px;
   margin-top: 10px;
   font-weight: bold;
+}
+.password--toggle{
+  cursor: pointer;
+  margin-left: 10px;
 }
 </style>
