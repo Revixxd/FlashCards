@@ -41,15 +41,14 @@ export interface RegisterProps {
 // flashcards request props
 export type GetUserFlashcardListProps = null
 export interface CreateFlashcardSetProps {
-  title: string
-  description: string
+  flashcardName: string
 }
 export interface UpdateFlashcardSetProps {
   flashcardId: string
   flashcards: Flashcard[]
 }
 export interface DeleteFlashcardSetProps {
-  flashcardSetId: string
+  flashcardId: string
 }
 
 export interface GetUserFlashcardSetProps {

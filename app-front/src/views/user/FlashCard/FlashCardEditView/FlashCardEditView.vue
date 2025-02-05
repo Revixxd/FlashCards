@@ -6,6 +6,9 @@
     </div>
     <div class="flashcards-container">
       <p>Fiszki:</p>
+      <div>
+        <button @click="createFlashCard()" />
+      </div>
       <div v-for="flashcard in formFlashCardSet?.flashcards" :key="flashcard._id" class="flashcard">
         <form class="flashcard-form">
           <div class="form-element">
@@ -35,29 +38,48 @@
 </template>
 
 <script setup lang="ts">
-import type { FlashcardSet } from '../../../../services/makeRequest/flashCards.types'
+import type { FlashcardSetLong } from '../../../../services/makeRequest/flashCards.types'
 import { onMounted, ref, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import useFlashCards from '../../../../utils/useFlashCards/useFlashCards'
 
 // IDEA: refactor useFlashCards to make it more reusable (useFlashCardsSet)
-const { getUserFlashCardsSet, updateFlashcardSet, requestError } = useFlashCards()
-const flashCardSet = ref<FlashcardSet>()
-const formFlashCardSet = ref<FlashcardSet>()
+const { getUserFlashCardsSet, updateFlashcardSet, requestError, createFlashcardSet } = useFlashCards()
+const flashCardSet = ref<FlashcardSetLong>()
+const formFlashCardSet = ref<FlashcardSetLong>()
 const route = useRoute()
+const router = useRouter()
 // TODO: fix route params types
 const flashcardId = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id
 
 async function saveFlashcardSet() {
-  if (formFlashCardSet.value) {
-    await updateFlashcardSet(flashcardId, formFlashCardSet.value.flashcards)
-      .then(() => {
-        getUserFlashCardsSet(flashcardId)
-          .then((res) => {
-            flashCardSet.value = res
-            formFlashCardSet.value = JSON.parse(JSON.stringify(flashCardSet.value))
+  if(formFlashCardSet.value) {
+    if (flashcardId === 'new') {
+      await createFlashcardSet(formFlashCardSet.value?.flashcardName)
+        .then((newFlashCardSetID) => {
+          if (newFlashCardSetID) {
+            getUserFlashCardsSet(newFlashCardSetID)
+            .then(() => {
+              router.push({
+                name: 'flashcard-edit',
+                params: { newFlashCardSetID },
+              })
+            })
+          }
+        })
+    }
+    else {
+      if (formFlashCardSet.value) {
+        await updateFlashcardSet(flashcardId, formFlashCardSet.value.flashcards)
+          .then(() => {
+            getUserFlashCardsSet(flashcardId)
+              .then((res) => {
+                flashCardSet.value = res
+                formFlashCardSet.value = JSON.parse(JSON.stringify(flashCardSet.value))
+              })
           })
-      })
+      }
+    }
   }
 }
 
@@ -83,10 +105,27 @@ function removeTemporaryFlashCard(flashcardId: string) {
 }
 
 onMounted(async () => {
-  const flashcardSetResponse = await getUserFlashCardsSet(flashcardId)
-  if (flashcardSetResponse) {
-    flashCardSet.value = flashcardSetResponse
-    formFlashCardSet.value = JSON.parse(JSON.stringify(flashCardSet.value))
+  if (flashcardId === 'new') {
+    formFlashCardSet.value = {
+      _id: 'temp',
+      flashcardName: 'Nowa fiszka',
+      userId: 'temp',
+      flashcards: [
+        {
+          _id: 'temp',
+          frontName: 'New frontName ',
+          backName: 'New BackName',
+        },
+      ],
+    }
+  }
+  else {
+    const flashcardSetResponse = await getUserFlashCardsSet(flashcardId)
+
+    if (flashcardSetResponse) {
+      flashCardSet.value = flashcardSetResponse
+      formFlashCardSet.value = JSON.parse(JSON.stringify(flashCardSet.value))
+    }
   }
 })
 
