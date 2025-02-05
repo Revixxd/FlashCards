@@ -17,7 +17,7 @@ const createFlashcardSet = async (req: Request, res: Response): Promise<void> =>
         }
         const flashcard = new Flashcard({ flashcardName, userId, flashcards: [] });
         await flashcard.save();
-        res.status(200).json({ message: "flashcard created" });
+        res.status(200).json({ message: "flashcard created", flashcardId: flashcard._id });
     } catch (error) {
         console.error("Error creating flashcard:", error);
     }
