@@ -56,12 +56,11 @@
         </li>
       </ul>
     </div>
+    <router-view />
   </div>
 </template>
 
 <script setup lang="ts">
-import Header from '@FlashCardsUi/Navigation/Header.vue'
-import Navigation from '@FlashCardsUi/Navigation/Navigation.vue'
 import { reactive } from 'vue'
 
 const flashcards = reactive([

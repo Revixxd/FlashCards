@@ -18,7 +18,7 @@ const updateFlashcardSet = async (req: Request, res: Response): Promise<void> =>
             return;
         }
 
-        const sanitizedFlashcards = flashcards.map((flashcard: { frontName: string, backName: string }) => ({
+        const sanitizedFlashcards = flashcards.map((flashcard: { frontName?: string, backName?: string }) => ({
             frontName: sanitizeInput(flashcard.frontName),
             backName: sanitizeInput(flashcard.backName),
         }));

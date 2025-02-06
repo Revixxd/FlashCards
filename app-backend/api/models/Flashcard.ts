@@ -6,8 +6,8 @@ interface IFlashcard extends Document {
     flashcards: Types.Array<IFlashcard>;
 }
 const FlashcardItemSchema: Schema = new Schema({
-    frontName: {type: String, required: true},
-    backName: {type: String, required: true}
+    frontName: {type: String, required: false},
+    backName: {type: String, required: false}
 });
 
 const FlashcardSchema: Schema = new Schema({

@@ -1,43 +1,36 @@
 import express from 'express';
-import validator from 'validator';
 import sanitizeInput from '../utils/sanitizeInput.js';
 import connectDb from '../utils/connectDb.js';
 import User from '../models/User.js';
 import { hashPassword } from '../controllers/auth.js';
 import { createAccessToken, createRefreshToken } from '../controllers/jwt.js';
+import validateRegitraion from '../utils/validateRegistration.js';
 
 const router = express.Router();
 
 router.post('/', async (req: express.Request, res: express.Response): Promise<void> => {
-    const sanitizedUsername: string = sanitizeInput(req.body.username);
-    const sanitizedPassword: string = sanitizeInput(req.body.password);
-    const sanitizedEmail: string = sanitizeInput(req.body.email);
+
+    const recievedUser: { username: string, password: string, email: string } = {
+        username: sanitizeInput(req.body.username),
+        password: sanitizeInput(req.body.password),
+        email: sanitizeInput(req.body.email)
+    }
     await connectDb();
 
-    if (!sanitizedUsername || !sanitizedPassword || !sanitizedEmail) {
-        res.status(400).json({ message: 'Username, password, and email are required' });
-        return;
-    }
-
-    if (!validator.isEmail(sanitizedEmail)) {
-        res.status(400).json({
-            message: 'Email is not valid'
-        });
-        return;
-    }
-
+    const isRegistrationValid = validateRegitraion(recievedUser, res);
+    if (!isRegistrationValid) return;
     try {
         const existingUser = await User.findOne({
-            $or: [{ username: sanitizedUsername }, { email: sanitizedEmail }]
+            $or: [{ username: recievedUser.username }, { email: recievedUser.email }]
         }).exec();
 
         if (existingUser) {
-            if (existingUser.username === sanitizedUsername) {
+            if (existingUser.username === recievedUser.username) {
                 res.status(400).json({
                     message: 'Username already exists'
                 });
                 return;
-            } else if (existingUser.email === sanitizedEmail) {
+            } else if (existingUser.email === recievedUser.email) {
                 res.status(400).json({
                     message: 'Email already exists'
                 });
@@ -45,11 +38,11 @@ router.post('/', async (req: express.Request, res: express.Response): Promise<vo
             }
         }
 
-        const hashedPassword = await hashPassword(sanitizedPassword);
+        const hashedPassword = await hashPassword(recievedUser.password);
         const newUser = new User({
-            username: sanitizedUsername,
+            username: recievedUser.username,
             password: hashedPassword,
-            email: sanitizedEmail
+            email: recievedUser.email
         });
 
         const savedUser = await newUser.save();
@@ -64,11 +57,11 @@ router.post('/', async (req: express.Request, res: express.Response): Promise<vo
             httpOnly: true,
             secure: false, // Set to true if using HTTPS
             sameSite: 'strict',
-            maxAge: 24 * 60 * 60 * 1000 
+            maxAge: 24 * 60 * 60 * 1000
         });
 
         res.header('Authorization', `Bearer ${accessToken}`);
-        res.status(201).json({ message: 'User registered'});
+        res.status(201).json({ message: 'User registered' });
         return;
     } catch (error) {
         console.error('Error during registration:', error);

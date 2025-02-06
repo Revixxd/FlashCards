@@ -1,5 +1,5 @@
+import type { Flashcard } from './flashCards.types'
 import type { DELETERequestEnum, GETRequestEnum, POSTRequestEnum } from './makeRequest.types'
-
 // POST request responses
 export interface LoginResponse {
   message: string
@@ -15,18 +15,7 @@ export interface UpdateFlashcardSetResponse {
 }
 
 // GET request responses
-export interface GetUserFlashcardsResponse {
-  flashcardSets: {
-    flashcardSetId: string
-    title: string
-    description: string
-    flashcards: {
-      frontName: string
-      backName: string
-    }[]
-  }[]
-}
-
+export type GetUserFlashcardsListResponse = Flashcard[]
 // DELETE request responses
 export interface DeleteFlashcardSetResponse {
   flashcardSetId: string
@@ -40,7 +29,9 @@ interface POSTRequestResponseType {
 }
 
 interface GetRequestResponseType {
-  [GETRequestEnum.GETUSERFLASHCARDS]: GetUserFlashcardsResponse
+  [GETRequestEnum.GETUSERFLASHCARDLIST]: GetUserFlashcardsListResponse
+  [GETRequestEnum.LOGOUT]: null
+  [GETRequestEnum.ISUSERAUTHENTICATED]: null
 }
 
 interface DELETERequestResponseType {
