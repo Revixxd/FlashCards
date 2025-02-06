@@ -1,17 +1,16 @@
-import type { FlashcardSet } from '../../services/makeRequest/flashCards.types'
 import { ref } from 'vue'
 import { makeRequest } from '../../services/makeRequest/makeRequest'
 import { POSTRequestEnum } from '../../services/makeRequest/makeRequest.types'
 
 function useFlashCardsSet(flashcardSetId: string) {
   const requestError = ref<Error | null>(null)
-  const userFlashCardsSet = ref<FlashcardSet | null>(null)
+  const userFlashCardsSet = ref<FlashcardSetLong | null>(null)
 
   const getFlashCardsSet = async (flashCardSetId: string) => {
     try {
       await makeRequest('POST', POSTRequestEnum.GETUSERFLASHCARDSET, { flashcardId: flashCardSetId })
         .then((response) => {
-          userFlashCardsSet.value = response as FlashcardSet
+          userFlashCardsSet.value = response as FlashcardSetLong
         })
     }
     catch (err: any) {
