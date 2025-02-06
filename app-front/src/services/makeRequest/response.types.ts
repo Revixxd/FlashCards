@@ -1,4 +1,4 @@
-import type { Flashcard } from './flashCards.types'
+import type { Flashcard, FlashcardSetLong } from './flashCards.types'
 import type { DELETERequestEnum, GETRequestEnum, POSTRequestEnum } from './makeRequest.types'
 // POST request responses
 export interface LoginResponse {
@@ -13,6 +13,7 @@ export interface CreateFlashcardSetResponse {
 export interface UpdateFlashcardSetResponse {
   flashcardSetId: string
 }
+export interface GetFlashCardSetResponse extends FlashcardSetLong {}
 
 // GET request responses
 export type GetUserFlashcardsListResponse = Flashcard[]
@@ -26,6 +27,7 @@ interface POSTRequestResponseType {
   [POSTRequestEnum.REGISTER]: RegisterResponse
   [POSTRequestEnum.CREATEFLASHCARDSET]: CreateFlashcardSetResponse
   [POSTRequestEnum.UPDATEFLASHCARDSET]: UpdateFlashcardSetResponse
+  [POSTRequestEnum.GETUSERFLASHCARDSET]: GetFlashCardSetResponse
 }
 
 interface GetRequestResponseType {
