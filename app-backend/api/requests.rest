@@ -27,7 +27,7 @@ Content-Type: application/json
 Authorization: token your-token-here
 
 {
-    "flashcardName": "your-flashcard-name",
+    "flashcardName": "your-flashcard-name"
 }
 
 ### Show Flashcard List
