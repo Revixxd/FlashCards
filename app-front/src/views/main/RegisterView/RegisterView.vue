@@ -1,42 +1,64 @@
 <template>
   <div>
     <div class="auth">
-      <form @submit.prevent="formSubmit" class="auth__form">
+      <form class="auth__form" @submit.prevent="formSubmit">
         <h1>Register to flashcards</h1>
 
-        <p class="auth__label">Enter your username</p>
-        <input type="text" v-model="formData.username" name="username" class="auth__input" required />
-        <p v-if="errors.username" class="error-text">{{ errors.username }}</p>
+        <p class="auth__label">
+          Enter your username
+        </p>
+        <input v-model="formData.username" type="text" name="username" class="auth__input" required>
+        <p v-if="errors.username" class="error-text">
+          {{ errors.username }}
+        </p>
 
-        <p class="auth__label">Enter your email</p>
-        <input type="text" v-model="formData.email" name="email" class="auth__input" required />
-        <p v-if="errors.email" class="error-text">{{ errors.email }}</p>
+        <p class="auth__label">
+          Enter your email
+        </p>
+        <input v-model="formData.email" type="text" name="email" class="auth__input" required>
+        <p v-if="errors.email" class="error-text">
+          {{ errors.email }}
+        </p>
 
-        <p class="auth__label">Enter your password</p>
+        <p class="auth__label">
+          Enter your password
+        </p>
         <div class="password-wrapper">
-          <input :type="showPassword ? 'text' : 'password'" v-model="formData.password" name="password" class="auth__input" required />
-          <span @click="togglePasswordVisibility('password')" class="password--toggle">
-          <font-awesome-icon :icon="showPassword ? 'eye' : 'eye-slash'" />
-         </span>
+          <input v-model="formData.password" :type="showPassword ? 'text' : 'password'" name="password" class="auth__input" required>
+          <span class="password--toggle" @click="togglePasswordVisibility('password')">
+            <font-awesome-icon :icon="showPassword ? 'eye' : 'eye-slash'" />
+          </span>
         </div>
-        <p v-if="errors.password" class="error-text">{{ errors.password }}</p>
+        <p v-if="errors.password" class="error-text">
+          {{ errors.password }}
+        </p>
 
-        <p class="auth__label">Confirm your password</p>
+        <p class="auth__label">
+          Confirm your password
+        </p>
         <div class="password--wrapper">
-          <input :type="showConfirmPassword ? 'text' : 'password'" v-model="confirmedPassword" name="confirmedPassword" class="auth__input" required />
-          <span @click="togglePasswordVisibility('confirmPassword')" class="password--toggle">
-          <font-awesome-icon :icon="showConfirmPassword ? 'eye' : 'eye-slash'" />
-         </span>
+          <input v-model="confirmedPassword" :type="showConfirmPassword ? 'text' : 'password'" name="confirmedPassword" class="auth__input" required>
+          <span class="password--toggle" @click="togglePasswordVisibility('confirmPassword')">
+            <font-awesome-icon :icon="showConfirmPassword ? 'eye' : 'eye-slash'" />
+          </span>
         </div>
-        <p v-if="errors.confirmedPassword" class="error-text">{{ errors.confirmedPassword }}</p>
+        <p v-if="errors.confirmedPassword" class="error-text">
+          {{ errors.confirmedPassword }}
+        </p>
 
-        <button type="submit" class="auth__button">Register</button>
+        <button type="submit" class="auth__button">
+          Register
+        </button>
 
-        <p v-if="requestError" class="error-text">{{ requestError.message }}</p>
+        <p v-if="requestError" class="error-text">
+          {{ requestError.message }}
+        </p>
 
         <p class="toggle__text">
           Already have an account?
-          <button type="button" @click="goToLogin" class="toggle__button">Login</button>
+          <button type="button" class="toggle__button" @click="goToLogin">
+            Login
+          </button>
         </p>
       </form>
     </div>
@@ -44,58 +66,64 @@
 </template>
 
 <script setup lang="ts">
-import type { RegisterProps } from '../../../services/makeRequest/makeRequest.types';
-import { ref } from 'vue';
-import useRegister from '../../../utils/useRegister/useRegister';
-import { useRouter } from 'vue-router';
+import type { RegisterProps } from '../../../services/makeRequest/makeRequest.types'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import useRegister from '../../../utils/useRegister/useRegister'
 
-const router = useRouter();
-const formData = ref<RegisterProps>({ username: '', email: '', password: '' });
-const confirmedPassword = ref('');
-const { register, requestError } = useRegister();
-const errors = ref<{ username?: string; email?: string; password?: string; confirmedPassword?: string }>({});
+const router = useRouter()
+const formData = ref<RegisterProps>({
+  username: '',
+  email: '',
+  password: '',
+})
+const confirmedPassword = ref('')
+const { register, requestError } = useRegister()
+const errors = ref<{ username?: string, email?: string, password?: string, confirmedPassword?: string }>({})
 
-const showPassword = ref(false);
-const showConfirmPassword = ref(false);
+const showPassword = ref(false)
+const showConfirmPassword = ref(false)
 
-const togglePasswordVisibility = (field: "password" | "confirmPassword") => {
-  if (field === "password") showPassword.value = !showPassword.value;
-  if (field === "confirmPassword") showConfirmPassword.value = !showConfirmPassword.value;
-};
+function togglePasswordVisibility(field: 'password' | 'confirmPassword') {
+  if (field === 'password')
+    showPassword.value = !showPassword.value
+  if (field === 'confirmPassword')
+    showConfirmPassword.value = !showConfirmPassword.value
+}
 
 async function validateForm() {
-  errors.value = {};
+  errors.value = {}
 
   if (!formData.value.username || formData.value.username.length < 3) {
-    errors.value.username = 'Username must be at least 3 characters long';
+    errors.value.username = 'Username must be at least 3 characters long'
   }
 
-  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  const emailPattern = /^[^\s@]+@[^\s@][^\s.@]*\.[^\s@]+$/
   if (!formData.value.email.match(emailPattern)) {
-    errors.value.email = 'Enter a valid email address with "@"';
+    errors.value.email = 'Enter a valid email address with "@"'
   }
 
   if (formData.value.password.length < 8 || !/[A-Z]/.test(formData.value.password) || !/[\W_]/.test(formData.value.password)) {
-    errors.value.password = 'Password must be at least 8 characters long and contain at least one uppercase letter and special character';
-  } 
-
-  if (confirmedPassword.value !== formData.value.password) {
-    errors.value.confirmedPassword = 'Passwords must match';
+    errors.value.password = 'Password must be at least 8 characters long and contain at least one uppercase letter and special character'
   }
 
-  return Object.keys(errors.value).length === 0;
+  if (confirmedPassword.value !== formData.value.password) {
+    errors.value.confirmedPassword = 'Passwords must match'
+  }
+
+  return Object.keys(errors.value).length === 0
 }
 
 async function formSubmit() {
-  const isValid = await validateForm();
+  const isValid = await validateForm()
   if (isValid) {
-    await register(formData.value);
+    await register(formData.value)
   }
 }
 
-const goToLogin = () => {
-  router.push('/login');
-};
+function goToLogin() {
+  router.push('/login')
+}
 </script>
 
 <style scoped lang="scss">

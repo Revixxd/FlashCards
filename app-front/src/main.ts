@@ -1,5 +1,5 @@
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faBars, faFolderOpen, faForward, faHome, faLayerGroup, faSignInAlt, faSquarePlus, faUser, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import { faBars, faEye, faEyeSlash, faFolderOpen, faForward, faHome, faLayerGroup, faSignInAlt, faSquarePlus, faUser } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { createPinia } from 'pinia'
 import { createApp } from 'vue'

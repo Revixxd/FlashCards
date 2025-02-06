@@ -1,56 +1,68 @@
 <template>
   <div class="auth">
-    <form @submit.prevent="formSubmit" class="auth__form">
-      <h1 class="auth__title">Login to FlashCards</h1>
+    <form class="auth__form" @submit.prevent="formSubmit">
+      <h1 class="auth__title">
+        Login to FlashCards
+      </h1>
 
-      <p class="auth__label">Enter your username</p>
-      <input type="text" v-model="formData.usernameOrEmail" name="username" class="auth__input" required />
+      <p class="auth__label">
+        Enter your username
+      </p>
+      <input v-model="formData.usernameOrEmail" type="text" name="username" class="auth__input" required>
 
-      <p class="auth__label">Enter your password</p>
+      <p class="auth__label">
+        Enter your password
+      </p>
       <div class="password--wrapper">
-        <input :type="showPassword ? 'text' : 'password'" v-model="formData.password" name="password" class="auth__input" required />
-        <span @click="togglePasswordVisibility()" class="password--toggle">
+        <input v-model="formData.password" :type="showPassword ? 'text' : 'password'" name="password" class="auth__input" required>
+        <span class="password--toggle" @click="togglePasswordVisibility()">
           <font-awesome-icon :icon="showPassword ? 'eye' : 'eye-slash'" />
-         </span>
+        </span>
       </div>
 
-      <button type="submit" class="auth__button">Login</button>
+      <button type="submit" class="auth__button">
+        Login
+      </button>
 
-      <p v-if="requestError" class="error-text">{{ requestError.message }}</p>
+      <p v-if="requestError" class="error-text">
+        {{ requestError.message }}
+      </p>
 
       <p class="toggle__text">
         Don't have an account?
-        <button type="button" @click="goToRegister" class="toggle__button">Register</button>
+        <button type="button" class="toggle__button" @click="goToRegister">
+          Register
+        </button>
       </p>
     </form>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import useLogin from '../../../utils/useLogin/useLogin';
-import type { LoginProps } from '../../../services/makeRequest/makeRequest.types';
-import { useRouter } from 'vue-router';
+import type { LoginProps } from '../../../services/makeRequest/makeRequest.types'
+import { ref } from 'vue'
+import { useRouter } from 'vue-router'
+import useLogin from '../../../utils/useLogin/useLogin'
 
 const formData = ref<LoginProps>({
   usernameOrEmail: '',
   password: '',
-});
-const { login, requestError } = useLogin();
-const router = useRouter();
-const showPassword = ref(false);
+})
+const { login, requestError } = useLogin()
+const router = useRouter()
+const showPassword = ref(false)
 
-const togglePasswordVisibility = () => {
-  showPassword.value = !showPassword.value;
-};
-
-function formSubmit() {
-  login(formData.value);
+function togglePasswordVisibility() {
+  showPassword.value = !showPassword.value
 }
 
-const goToRegister = () => {
-  router.push('/register');
-};
+function formSubmit() {
+  login(formData.value)
+}
+
+function goToRegister() {
+  router.push('/register')
+}
 </script>
 
 <style scoped lang="scss">
