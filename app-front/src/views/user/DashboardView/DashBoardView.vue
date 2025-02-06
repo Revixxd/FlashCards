@@ -1,6 +1,8 @@
 <template>
   <div class="dashboard">
-    <div class="test">
+    <Header />
+    <Navigation />
+    <div>
       <h2>Last sets</h2>
       <ul class="list">
         <li v-for="(flashcard, index) in flashcards" :key="index" class="box">
