@@ -14,25 +14,25 @@
       >
     </div>
     <div class="header__element">
-      <font-awesome-icon :icon="['fas', 'square-plus']" class="icon__plus" />
-      <button class="profil__upgrade profil">
-        upgrade
-      </button>
-      <button class="log-out" @click="logOut">
-        log-out
-      </button>
-      <font-awesome-icon :icon="['fas', 'user']" class="profil__img profil" />
+      <font-awesome-icon :icon="['fas', 'square-plus']" class="icon__plus" @click="createFlashCards" />
+      <font-awesome-icon :icon="['fas', 'user']" class="profil__img profil" @click="logOut" />
     </div>
   </header>
 </template>
 
 <script setup lang="ts">
 import { provide } from 'vue'
+import { useRouter } from 'vue-router'
 import { navbarView } from '../../../store/MainStore.js'
 import logOut from '../../../utils/logOut/logOut'
 
+const router = useRouter()
+
 const store = navbarView()
 const toggled = false
+function createFlashCards() {
+  router.push('/app/flashcard/edit/new')
+}
 function toggleNavbar() {
   store.toggleEvent()
 }
@@ -49,11 +49,7 @@ provide('toggled', toggled)
   display: flex;
   justify-content: space-between;
   background-color: $background-color;
-  // position: fixed;
-  // top: 0;
-  // left: 0;
-  // right: 0;
-  // z-index: 1000;
+
   .header__element {
     display: flex;
     align-items: center;
@@ -98,6 +94,7 @@ provide('toggled', toggled)
   height: 30px;
   margin: 0 16px 0 0;
   color: $color-light;
+  cursor: pointer;
 }
 .icon__logo {
   width: 30px;
