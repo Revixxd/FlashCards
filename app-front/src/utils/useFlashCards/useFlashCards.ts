@@ -1,4 +1,4 @@
-import type { Flashcard, FlashcardSet, FlashcardSetLong } from '../../services/makeRequest/flashCards.types'
+import type { Flashcard, FlashcardSet } from '../../services/makeRequest/flashCards.types'
 import { ref } from 'vue'
 import { makeRequest } from '../../services/makeRequest/makeRequest'
 import { DELETERequestEnum, GETRequestEnum, POSTRequestEnum } from '../../services/makeRequest/makeRequest.types'

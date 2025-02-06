@@ -1,5 +1,5 @@
 <template>
-  <nav :class="['nav', { 'nav--hidden': store.toggled}]">
+  <nav class="nav" :class="[{ 'nav--hidden': store.toggled }]">
     <RouterLink
       v-for="(routeElement, key) in routesList()"
       :key="key"
@@ -16,15 +16,13 @@
 </template>
 
 <script setup lang="ts">
-import routes from '@src/routes'
 import { ref, watch } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
-import { navbarView } from '../../../store/MainStore.js';
+import { navbarView } from '../../../store/MainStore.js'
 
-const store = navbarView();
+const store = navbarView()
 const selectedRoute = ref<string | null>(null)
 const route = useRoute()
-let toggled = false;
 
 function isActive(routeName: string) {
   return selectedRoute.value === routeName
@@ -48,7 +46,6 @@ function getIcon(routeName: string) {
       return ['fas', 'question']
   }
 }
-
 </script>
 
 <style scoped lang="scss">
@@ -58,7 +55,7 @@ function getIcon(routeName: string) {
   width: 225px;
   padding: 8px 24px 0 0;
   position: fixed;
-  top: 60px; 
+  top: 60px;
   bottom: 0;
   left: 0;
   z-index: 1000;
@@ -92,6 +89,6 @@ function getIcon(routeName: string) {
 }
 
 .nav--hidden {
-  display: block; 
+  display: block;
 }
 </style>

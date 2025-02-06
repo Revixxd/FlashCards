@@ -27,17 +27,16 @@
 </template>
 
 <script setup lang="ts">
-import {provide  } from 'vue';
+import { provide } from 'vue'
+import { navbarView } from '../../../store/MainStore.js'
 import logOut from '../../../utils/logOut/logOut'
-import { navbarView } from '../../../store/MainStore.js';
 
-const store = navbarView();
-let toggled = false;
-const toggleNavbar = () => {
-  store.toggleEvent();
-};
-provide('toggled', toggled);
-
+const store = navbarView()
+const toggled = false
+function toggleNavbar() {
+  store.toggleEvent()
+}
+provide('toggled', toggled)
 </script>
 
 <style scoped lang="scss">
