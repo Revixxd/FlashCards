@@ -53,17 +53,14 @@ const router = useRouter()
 const flashcardId = Array.isArray(route.params.id) ? route.params.id[0] : route.params.id
 
 async function saveFlashcardSet() {
-  if(formFlashCardSet.value) {
+  if (formFlashCardSet.value) {
     if (flashcardId === 'new') {
       await createFlashcardSet(formFlashCardSet.value?.flashcardName)
         .then((newFlashCardSetID) => {
           if (newFlashCardSetID) {
-            getUserFlashCardsSet(newFlashCardSetID)
-            .then(() => {
-              router.push({
-                name: 'flashcard-edit',
-                params: { newFlashCardSetID },
-              })
+            router.push({
+              name: 'flashcard-edit',
+              params: { id: newFlashCardSetID },
             })
           }
         })
