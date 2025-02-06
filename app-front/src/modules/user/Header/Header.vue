@@ -25,12 +25,13 @@ import { provide } from 'vue'
 import { useRouter } from 'vue-router'
 import { navbarView } from '../../../store/MainStore.js'
 import logOut from '../../../utils/logOut/logOut'
+
 const router = useRouter()
 
 const store = navbarView()
 const toggled = false
-function createFlashCards()  {
-  router.push('/app/flashcard/edit/new'); 
+function createFlashCards() {
+  router.push('/app/flashcard/edit/new')
 }
 function toggleNavbar() {
   store.toggleEvent()
@@ -42,7 +43,7 @@ provide('toggled', toggled)
 @import "@src/styles/variables.scss";
 
 .header {
-  width: 99%;
+  width: 100%;
   height: 40px;
   padding: 12px 16px;
   display: flex;
