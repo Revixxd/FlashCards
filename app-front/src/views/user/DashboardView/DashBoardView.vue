@@ -1,7 +1,5 @@
 <template>
   <div class="dashboard">
-    <Header />
-    <Navigation />
     <div>
       <h2>Last sets</h2>
       <ul class="list">
@@ -10,20 +8,20 @@
           <div class="box__info">
             <h3>{{ flashcard.title }}</h3>
             <p class="box__info__text">
-              FlashCards set {{ flashcard.amount }} terms creator {{ flashcard.creator }}
+              FlashCards {{ flashcard.amount }} terms creator {{ flashcard.creator }}
             </p>
           </div>
         </li>
       </ul>
     </div>
-    <div class="">
+    <div>
       <h2>Sets recommended for you</h2>
       <ul class="list">
-        <li v-for="(flashcard, index) in flashcards" :key="index" class="content">
-          <h3 class="content__title">
+        <li v-for="(flashcard, index) in flashcards" :key="index" class="flashBox">
+          <h3 class="flashBox__title">
             {{ flashcard.title }}
           </h3>
-          <p class="content__description">
+          <p class="flashBox__description">
             {{ flashcard.amount }} flashcards
           </p>
           <div class="creator">
@@ -36,14 +34,14 @@
         </li>
       </ul>
     </div>
-    <div class="">
+    <div>
       <h2>Popular flashcards</h2>
       <ul class="list">
-        <li v-for="(flashcard, index) in flashcards" :key="index" class="content">
-          <h3 class="content__title">
+        <li v-for="(flashcard, index) in flashcards" :key="index" class="flashBox">
+          <h3 class="flashBox__title">
             {{ flashcard.title }}
           </h3>
-          <p class="content__description">
+          <p class="flashBox__description">
             {{ flashcard.amount }} flashcards
           </p>
           <div class="creator">
@@ -80,8 +78,8 @@ const flashcards = reactive([
   },
   {
     title: 'Biologia',
-    amount: 100,
-    creator: 'Piotr Wiśniewski',
+    amount: 10,
+    creator: 'Piotr Nowak',
     role: 'uczeń',
     img: 'path/to/image3.jpg',
   },
@@ -98,9 +96,8 @@ const flashcards = reactive([
   margin: 80px auto 0 230px;
   padding: 0 32px;
 }
-.content {
+.flashBox {
   min-width: 290px;
-  height: 156px;
   background-color: $primary-color;
   border-radius: 10px;
   margin: 0 16px 16px 0;
@@ -184,7 +181,7 @@ const flashcards = reactive([
   &__info {
 
     &__text {
-      font-size: 14px;
+      font-size: 12px;
     }
   }
   &:hover {
