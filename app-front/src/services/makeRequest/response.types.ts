@@ -1,4 +1,4 @@
-import type { FlashcardSet } from './flashCards.types'
+import type { Flashcard } from './flashCards.types'
 import type { DELETERequestEnum, GETRequestEnum, POSTRequestEnum } from './makeRequest.types'
 // POST request responses
 export interface LoginResponse {
@@ -15,7 +15,7 @@ export interface UpdateFlashcardSetResponse {
 }
 
 // GET request responses
-export type GetUserFlashcardsListResponse = FlashcardSet
+export type GetUserFlashcardsListResponse = Flashcard[]
 // DELETE request responses
 export interface DeleteFlashcardSetResponse {
   flashcardSetId: string

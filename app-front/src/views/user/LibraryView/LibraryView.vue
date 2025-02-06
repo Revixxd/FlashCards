@@ -1,35 +1,32 @@
 <template>
-  <div class="flashcard-set">
-    <div v-for="flashcardsSet in flashcardsSetList" :key="flashcardsSet._id" class="flashcard-set__element">
-      nazwa setu: {{ flashcardsSet.flashcardName }}
-      <div v-for="flashcard in flashcardsSet.flashcards" :key="flashcard._id">
-        fiszka: {{ flashcard.frontName }}
-      </div>
-      <RouterLink :to="{ name: 'flashcard-edit', params: { id: flashcardsSet._id } }">
+  <div v-if="userFlashCardsList.length !== 0" class="flashcard-set">
+    <div class="flashcard-set__element">
+      <RouterLink :to="{ name: 'flashcard-edit', params: { id: 'new' } }">
+        <button>dodaj nowy set</button>
+      </RouterLink>
+    </div>
+    <div v-for="flashcard in userFlashCardsList" :key="flashcard._id" class="flashcard-set__element">
+      <p>nazwa setu: {{ flashcard.flashcardName }}</p>
+      <RouterLink :to="{ name: 'flashcard-edit', params: { id: flashcard._id } }">
         <button>edytuj</button>
       </RouterLink>
-      <RouterLink :to="{ name: 'flashcard-play', params: { id: flashcardsSet._id } }">
+      <button @click="deleteFlashcardSet(flashcard._id)">
+        usun
+      </button>
+      <RouterLink :to="{ name: 'flashcard-play', params: { id: flashcard._id } }">
         <button>rozpocznij nauke</button>
       </RouterLink>
     </div>
   </div>
+  <div v-else>
+    <p>loading</p>
+  </div>
 </template>
 
 <script setup lang="ts">
-import type { FlashcardSet } from '../../../services/makeRequest/flashCards.types'
-import { onMounted, ref } from 'vue'
 import useFlashCards from '../../../utils/useFlashCards/useFlashCards'
 
-const { getFlashCardsSets } = useFlashCards()
-
-const flashcardsSetList = ref<FlashcardSet[]>([])
-
-onMounted(async () => {
-  await getFlashCardsSets()
-    .then((res) => {
-      flashcardsSetList.value = res
-    })
-})
+const { userFlashCardsList, deleteFlashcardSet } = useFlashCards()
 </script>
 
 <style scoped>
