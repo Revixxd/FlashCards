@@ -1,31 +1,32 @@
 <template>
-  <nav class="nav" :class="[{ 'nav--hidden': store.toggled }]">
+  <nav class="nav" :class="{ 'nav--hidden': store.toggled }">
     <RouterLink
-      v-for="(routeElement, key) in routesList()"
+      v-for="(routeElement, key) in route"
       :key="key"
-      :to="{ name: routeElement.name }"
+      :to="routeElement"
       class="nav__link"
       active-class="active"
-    >
-      <li class="nav__list" :class="[{ 'nav__list--active': isActive(routeElement.name) }]" @click.prevent="">
-        <font-awesome-icon :icon="getIcon(routeElement.name)" class="nav__icon" />
-        {{ routeElement.name }}
+    > 
+       <li class="nav__list" :class="[{ 'nav__list--active': isActive(route.name) }]" @click.prevent="">
+        <font-awesome-icon :icon="getIcon(route.name)" class="nav__icon" />
+        {{route.name}}
       </li>
     </RouterLink>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, onMounted } from 'vue'
 import { RouterLink, useRoute } from 'vue-router'
 import { navbarView } from '../../../store/MainStore.js'
+
 
 const store = navbarView()
 const selectedRoute = ref<string | null>(null)
 const route = useRoute()
 
 function isActive(routeName: string) {
-  return selectedRoute.value === routeName
+  return route.name === routeName
 }
 
 watch(route, (newRoute) => {
@@ -46,6 +47,9 @@ function getIcon(routeName: string) {
       return ['fas', 'question']
   }
 }
+onMounted(() => {
+  console.log('Routes:', route, selectedRoute.value)
+})
 </script>
 
 <style scoped lang="scss">
@@ -55,26 +59,28 @@ function getIcon(routeName: string) {
   width: 225px;
   padding: 8px 24px 0 0;
   position: fixed;
-  top: 60px;
+  top: 40px;
   bottom: 0;
   left: 0;
   z-index: 1000;
   padding-top: 20px;
   background-color: $background-color;
+  transition: transform 0.3s ease-in-out;
 
   &__list {
     width: 200px;
     height: 40px;
     display: flex;
-    justify-self: start;
     align-items: center;
     padding: 0 16px 0 8px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out;
   }
 
   &__icon {
     width: 20px;
     height: 20px;
-    margin: 0 16px 0 0;
+    margin-right: 16px;
   }
 
   &__list--active {
@@ -83,12 +89,9 @@ function getIcon(routeName: string) {
     padding: 0 16px 0 8px;
     color: $text-color;
   }
-    &--hidden {
+
+  &--hidden {
     transform: translateX(-100%);
   }
-}
-
-.nav--hidden {
-  display: block;
 }
 </style>

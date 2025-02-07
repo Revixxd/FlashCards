@@ -90,11 +90,17 @@ const flashcards = reactive([
 @import "@src/styles/variables.scss";
 
 .dashboard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   background-color: $background-color;
   color: $text-color;
   max-width: 1300px;
-  margin: 80px auto 0 230px;
   padding: 0 32px;
+  gap: 40px;
+  min-height: 90vh; 
+  margin: 20px 0;
 }
 .flashBox {
   min-width: 290px;
@@ -116,7 +122,7 @@ const flashcards = reactive([
   &__description {
     width: 30%;
     font-size: 12px;
-    margin-left: 15px;
+    margin: 15px;
     padding: 5px 0;
     background-color: $secondary-color;
     border-radius: 20px;
@@ -135,6 +141,7 @@ const flashcards = reactive([
   justify-content: start;
   align-items: start;
   flex-wrap: wrap;
+  margin-top: 15px;
 }
 
 .creator {
@@ -172,30 +179,25 @@ const flashcards = reactive([
   &__icon {
     width: 15px;
     height: 15px;
-    margin: 0 20px 0 0;
     padding: 10px;
     background-color: $secondary-color;
     border-radius: 10px;
   }
 
   &__info {
-
+    margin: 10px;
     &__text {
+      margin: 10px;
       font-size: 12px;
     }
+  }
+
+  &__info h3 {
+    margin-left: 10px;
   }
   &:hover {
     background-color: $secondary-color;
   }
 }
 
-@media (max-width: 700px) {
-  .dashboard {
-    margin: 80px auto 0;
-    padding: 0 30px;
-  }
-  .list {
-    padding-inline: auto;
-  }
-}
 </style>
