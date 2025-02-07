@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const navbarView = defineStore('navbar', {
   state: () => ({
-    toggled: false,
+    toggled: true,
   }),
   actions: {
     toggleEvent() {
