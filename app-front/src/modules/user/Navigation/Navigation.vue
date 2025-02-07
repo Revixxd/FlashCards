@@ -1,55 +1,50 @@
 <template>
   <nav class="nav" :class="{ 'nav--hidden': store.toggled }">
     <RouterLink
-      v-for="(routeElement, key) in route"
+      v-for="(routeElement, key) in routesList()"
       :key="key"
-      :to="routeElement"
+      :to="{ name: routeElement.name }"
       class="nav__link"
       active-class="active"
-    > 
-       <li class="nav__list" :class="[{ 'nav__list--active': isActive(route.name) }]" @click.prevent="">
-        <font-awesome-icon :icon="getIcon(route.name)" class="nav__icon" />
-        {{route.name}}
+    >
+      <li class="nav__list">
+        <div class="nav__list__element">
+          <font-awesome-icon :icon="getIcon(routeElement.name)" class="nav__icon" />
+          {{ routeElement.name }}
+        </div>
       </li>
     </RouterLink>
   </nav>
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue'
-import { RouterLink, useRoute } from 'vue-router'
+import routes from '@src/routes'
+import { RouterLink } from 'vue-router'
 import { navbarView } from '../../../store/MainStore.js'
 
-
 const store = navbarView()
-const selectedRoute = ref<string | null>(null)
-const route = useRoute()
-
-function isActive(routeName: string) {
-  return route.name === routeName
-}
-
-watch(route, (newRoute) => {
-  selectedRoute.value = newRoute.name
-})
-
-selectedRoute.value = route.name
 
 function getIcon(routeName: string) {
   switch (routeName) {
-    case 'Home':
+    case 'flashcard':
       return ['fas', 'home']
-    case 'Dashboard':
+    case 'dashboard':
       return ['fas', 'folder-open']
-    case 'Login':
-      return ['fas', 'sign-in-alt']
+    case 'library':
+      return ['fas', 'book']
     default:
       return ['fas', 'question']
   }
 }
-onMounted(() => {
-  console.log('Routes:', route, selectedRoute.value)
-})
+
+function routesList() {
+  const app = routes.find((route: routes) => route.name === 'app')
+  const appChildren = app?.children
+
+  return [
+    ...appChildren,
+  ]
+}
 </script>
 
 <style scoped lang="scss">
@@ -83,15 +78,19 @@ onMounted(() => {
     margin-right: 16px;
   }
 
-  &__list--active {
-    border-radius: 10px;
-    background-color: $primary-color;
-    padding: 0 16px 0 8px;
-    color: $text-color;
-  }
-
   &--hidden {
     transform: translateX(-100%);
+  }
+}
+.nav__list__element {
+  width: 100%;
+  border-radius: 8px;
+  padding: 5px 16px 5px 8px;
+  color: $text-color;
+}
+.active  {
+  .nav__list__element {
+    background-color: $primary-color;
   }
 }
 </style>

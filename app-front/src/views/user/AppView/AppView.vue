@@ -1,7 +1,7 @@
 <template>
   <div class="appWrapper">
-    <Navigation />
     <Header />
+    <Navigation />
     <div id="user-app">
       <RouterView class="content" />
     </div>
@@ -12,7 +12,6 @@
 import { RouterView } from 'vue-router'
 import Header from '../../../modules/user/Header/Header.vue'
 import Navigation from '../../../modules/user/Navigation/Navigation.vue'
-
 </script>
 
 <style scoped lang="scss">

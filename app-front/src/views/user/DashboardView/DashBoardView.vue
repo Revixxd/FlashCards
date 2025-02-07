@@ -17,11 +17,11 @@
     <div>
       <h2>Sets recommended for you</h2>
       <ul class="list">
-        <li v-for="(flashcard, index) in flashcards" :key="index" class="flashBox">
-          <h3 class="flashBox__title">
+        <li v-for="(flashcard, index) in flashcards" :key="index" class="app-content-view">
+          <h3 class="app-content-view__title">
             {{ flashcard.title }}
           </h3>
-          <p class="flashBox__description">
+          <p class="app-content-view__description">
             {{ flashcard.amount }} flashcards
           </p>
           <div class="creator">
@@ -37,11 +37,11 @@
     <div>
       <h2>Popular flashcards</h2>
       <ul class="list">
-        <li v-for="(flashcard, index) in flashcards" :key="index" class="flashBox">
-          <h3 class="flashBox__title">
+        <li v-for="(flashcard, index) in flashcards" :key="index" class="app-content-view">
+          <h3 class="app-content-view__title">
             {{ flashcard.title }}
           </h3>
-          <p class="flashBox__description">
+          <p class="app-content-view__description">
             {{ flashcard.amount }} flashcards
           </p>
           <div class="creator">
@@ -99,10 +99,10 @@ const flashcards = reactive([
   max-width: 1300px;
   padding: 0 32px;
   gap: 40px;
-  min-height: 90vh; 
+  min-height: 90vh;
   margin: 20px 0;
 }
-.flashBox {
+.app-content-view {
   min-width: 290px;
   background-color: $primary-color;
   border-radius: 10px;
@@ -199,5 +199,4 @@ const flashcards = reactive([
     background-color: $secondary-color;
   }
 }
-
 </style>
