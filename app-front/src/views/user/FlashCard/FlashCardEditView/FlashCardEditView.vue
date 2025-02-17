@@ -1,40 +1,40 @@
 <template>
-  <div>
+  <div class="flashcards">
     <p>{{ requestError }} </p>
-    <div>
-      <p>Nazwa setu fiszek: {{ flashCardSet?.flashcardName }}</p>
-    </div>
-    <div class="flashcards-container">
-      <p>Fiszki:</p>
+    <div class="flashcards--container">
+      <h2 class="flashcards--container__title" >Set name: {{ flashCardSet?.flashcardName }}</h2>
+      <p>Flash Cards:</p>
       <div>
-        <button @click="createFlashCard()" />
+        <button @click="createFlashCard()" class="btn">Create set </button>
       </div>
       <div v-for="flashcard in formFlashCardSet?.flashcards" :key="flashcard._id" class="flashcard">
-        <form class="flashcard-form">
-          <div class="form-element">
-            <label :for="`${flashcard._id} ` + `frontName`">Pytanie</label>
-            <input v-model="flashcard.frontName" :name="`${flashcard._id} ` + `frontName`" type="text">
+        <form class="flashcard--form">
+          <div class="form--element">
+            <label :for="`${flashcard._id} ` + `frontName`">Question</label>
+            <input v-model="flashcard.frontName" :name="`${flashcard._id} ` + `frontName`" type="text" class="flashcard__input">
           </div>
-          <div class="form-element">
-            <label :for="`${flashcard._id} ` + `backName`">Odpowiedz</label>
-            <input v-model="flashcard.backName" :name="`${flashcard._id} ` + `backName`" type="text">
+          <div class="form--element">
+            <label :for="`${flashcard._id} ` + `backName`">Answer</label>
+            <input v-model="flashcard.backName" :name="`${flashcard._id} ` + `backName`" type="text" class="flashcard__input">
           </div>
         </form>
-        <button @click="removeTemporaryFlashCard(flashcard._id)">
-          Usuń fiszke
+        <button @click="removeTemporaryFlashCard(flashcard._id)" class="btn">
+         Remove Flash Card
         </button>
       </div>
+      <div class="flashcards--btn">
+          <button @click.prevent="resetForm" class="btn">
+            Reset
+          </button>
+          <button @click.prevent="addTempFlashCard()" class="btn">
+            Add Flash Card
+          </button >
+          <button @click.prevent="saveFlashcardSet()" class="btn">
+            Save set
+          </button>
+      </div>
     </div>
-    <button @click.prevent="resetForm">
-      Reset
-    </button>
-    <button @click.prevent="addTempFlashCard()">
-      Dodaj fiszke
-    </button>
-    <button @click.prevent="saveFlashcardSet()">
-      Zapisz set fiszek
-    </button>
-  </div>
+    </div>
 </template>
 
 <script setup lang="ts">
@@ -134,28 +134,62 @@ watch(requestError, (newError) => {
 })
 </script>
 
-<style scoped>
-.flashcards-container {
+<style scoped lang="scss">
+@import "@src/styles/variables.scss";
+
+.flashcards--container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &__title {
+    padding: 30px;
+  }
+
+}
+
+.flashcard {
+  padding: 10px;
+  border-radius: 5px;
+
+  &__input {
+  background-color: $input-color; 
+  border: 1px solid $secondary-color;
+  color: $text-color;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 400px;
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+&--form {
   display: flex;
   flex-direction: column;
   gap: 10px;
 
-  .flashcard {
-    background-color: #f0f0f0;
-    padding: 10px;
-    border-radius: 5px;
+}
 
-    .flashcard-form {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+}
+.form--element {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
 
-      .form-element {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-      }
-    }
-  }
+.btn {
+  background-color: $secondary-color; 
+  color: $text-color;
+  border: none;
+  margin: 10px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease-in-out;
+}
+.btn:hover {
+  background-color: $input-color; 
 }
 </style>
