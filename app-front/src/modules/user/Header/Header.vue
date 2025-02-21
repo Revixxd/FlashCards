@@ -66,7 +66,6 @@ provide('toggled', toggled)
 .profil__img {
   width: 30px;
   height: 30px;
-  margin-right: 30px;
 }
 
 .search__input {
