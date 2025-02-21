@@ -1,33 +1,37 @@
 <template>
-  <div v-if="gameStates === 'start'">
-    <button @click="startGame()">
-      Rozpocznij grę
-    </button>
+  <div v-if="gameStates === 'start'" class="play">
+    <div class="play__box">
+      <button @click="startGame()" class="play__box__btn">
+        Start Game
+      </button>
+    </div>
   </div>
-  <div v-else-if="gameStates === 'playing'">
-    <div>
-      <div>
-        <div class="flashcard" @click="updateFlashCardValue()">
+  <div v-else-if="gameStates === 'playing'" class="play">
+    <div class="flashCard">
+        <div @click="updateFlashCardValue()" class="flashCard__value">
           {{ currentFlashCardValue }}
         </div>
-      </div>
-      <div v-if="currentFlashCardState === 'back'">
-        <button @click="buttonAction('correct')">
-          Zgadłem
+      <div v-if="currentFlashCardState === 'back'" class="flashCard__box">
+        <button @click="buttonAction('correct')" class="flashCard__box--correct">
+          Correct
         </button>
-        <button @click="buttonAction('incorrect')">
-          nie zgadłem
+        <button @click="buttonAction('incorrect')" class="flashCard__box--incorrect">
+          Incorrect
         </button>
       </div>
     </div>
   </div>
-  <div v-else-if="gameStates === 'summary'">
-    <div>
-      <div>
-        Poprawne: {{ summary.correct }}
-      </div>
-      <div>
-        Niepoprawne: {{ summary.incorrect }}
+  <div v-else-if="gameStates === 'summary'" class="summary" >
+    <div class="summary__box">
+        <h3 class="summary__box--correct">
+          Correct: {{ summary.correct }}
+        </h3>
+        <h3 class="summary__box--incorrect">
+          Incorrect: {{ summary.incorrect }}
+        </h3>
+      <div class="summary__btn">
+        <button @click="reloadPage" class="summary__btn--retry">Retry</button>
+        <RouterLink :to="{ name: 'library' }" class="summary__btn--exit">Exit</RouterLink>
       </div>
     </div>
   </div>
@@ -102,14 +106,165 @@ watch(userFlashCardsSet, () => {
     }
   }
 })
+function reloadPage() {
+  window.location.reload();
+}
 </script>
 
-<style scoped>
-.flashcard {
-  width: 100px;
-  height: 100px;
-  border: 1px solid black;
-  margin: 10px;
-  padding: 10px;
+<style scoped lang="scss">
+@import "@src/styles/variables.scss";
+
+
+.play {
+  width: 100%;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: transparent;
+  &__box {
+    width: 600px;
+    height: 400px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary-color;
+
+    &__btn {
+      width: 100px;
+      height: 70px;
+      border-radius: 10px;
+      cursor: pointer;
+      border: none;
+      font-size: 20px;
+      color: $text-color;
+      background-color: $secondary-background-color;
+    }
+  }
+}
+
+.flashCard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__value {
+    width: 600px;
+    height: 400px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $primary-color;
+    font-size: 25px;
+  }
+  &__box {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px;
+    &--correct,
+    &--incorrect {
+    width: 120px;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+    border: none;
+    }
+    &--correct {
+    background-color: $correct-answer-color; 
+    color: $text-color;
+
+      &:hover {
+      background-color: darken($correct-answer-color, 10%);
+      transform: scale(1.05);
+      }
+    }
+    &--incorrect {
+    background-color: $accent-color;
+    color: $text-color;
+
+    &:hover {
+      background-color: darken($accent-color, 10%);
+      transform: scale(1.05);
+    }
+  }
+  }
+}
+
+.summary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 600px;
+  background-color: transparent;
+  &__box {
+    width: 600px;
+    height: 400px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: $primary-color;
+    font-size: 25px;
+    font-weight: bold;
+    gap: 20px;
+
+  &--correct {
+    color: $correct-answer-color; 
+    
+  }
+
+  &--incorrect {
+    color: $accent-color; 
+  }
+}
+}
+
+.summary__btn {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+
+  &--retry,
+  &--exit {
+    width: 150px;
+    height: 50px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.2s ease-in-out;
+    border: none;
+  }
+
+  &--retry {
+    background-color: $color-light; 
+    color: $text-color;
+
+    &:hover {
+      background-color: darken($color-light, 10%);
+      transform: scale(1.05);
+    }
+  }
+
+  &--exit {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $color-light; 
+    color: $text-color;
+
+    &:hover {
+      background-color: darken($color-light, 10%);
+      transform: scale(1.05);
+    }
+  }
 }
 </style>
