@@ -99,8 +99,8 @@ const flashcards = reactive([
   max-width: 1300px;
   padding: 0 32px;
   gap: 40px;
-  min-height: 90vh;
-  margin: 20px 0;
+  min-height: 100vh;
+  margin-inline: auto;
 }
 .app-content-view {
   min-width: 290px;

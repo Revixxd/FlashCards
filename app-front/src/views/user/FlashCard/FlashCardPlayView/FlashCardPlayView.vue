@@ -106,9 +106,23 @@ watch(userFlashCardsSet, () => {
     }
   }
 })
+
 function reloadPage() {
-  window.location.reload();
+  gameStates.value = 'start';
+  currentFlashCardNumber.value = 0;
+  summary.value.correct = 0;
+  summary.value.incorrect = 0;
+
+  // Resetowanie pierwszej karty
+  if (userFlashCardsSet.value) {
+    currentFlashCard.value = userFlashCardsSet.value.flashcards[0];
+    if (currentFlashCard.value) {
+      currentFlashCardValue.value = currentFlashCard.value.frontName;
+      currentFlashCardState.value = 'front';
+    }
+  }
 }
+
 </script>
 
 <style scoped lang="scss">
